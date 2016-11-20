@@ -12,8 +12,8 @@
 // var $tie = $('#tie_id');
 // var $suits = $('#suits');
 
-
-var deckCards = function (suit, face, value) {
+// making constructor function for the deck of cards
+var EachCard = function (suit, face, value) {
 
     this.suit = suit;
     this.face = face;
@@ -21,28 +21,36 @@ var deckCards = function (suit, face, value) {
 
 }
 // using oop to make the deck by using properties from above constuructor function
-var deck = function () {
+var Deck = function () {
 // making an empty array that cards can be pushed in
-  this.cards: [];
+  this.cards = [];
 // making array's containing each suit, face, and value
-  this.suit: ['hearts', 'spades', 'diamonds', 'clubs']
-  this.face: ['king', 'queen', 'jack', 'ace']
-  this.value: [2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10, 11]
+  this.suit = ['hearts', 'spades', 'diamonds', 'clubs'];
+  this.face = ['king', 'queen', 'jack', 'ace'];
+  this.value = [2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10, 11];
 // applying suits to the deck of cards
-  this.suit: function () {
-    for (i = 0; i <= suit.length; i++)
+  this.suitAply = function () {
+    for (i = 0; i <= suit.length; i++);
+    this.cards.push(suit[i]);
   },
 //  applying faces to the deck of cards
-  this.face: function () {
-      for (i = 0; i <= face.length; i++)
+  this.faceAply = function () {
+      for (f = 0; f <= face.length; f++);
+      this.cards.push(face[f]);
   },
 // applying value to the deck of cards
-  this.value = function () {
-      for (i = 0; i <= value.length; i++)
+  this.valueAply = function () {
+      for (v = 2; v <= value.length; v++);
+      this.cards.push(value[v]);
   }
 
 
 }
+
+
+var EachCard1 = new EachCard();
+console.log(EachCard1);
+
 
 
 
