@@ -12,19 +12,56 @@
 // var $tie = $('#tie_id');
 // var $suits = $('#suits');
 
+
+var deckCards = function (suit, face, value) {
+
+    this.suit = suit;
+    this.face = face;
+    this.value = value;
+
+}
+// using oop to make the deck by using properties from above constuructor function
+var deck = function () {
+// making an empty array that cards can be pushed in
+  this.cards: [];
+// making array's containing each suit, face, and value
+  this.suit: ['hearts', 'spades', 'diamonds', 'clubs']
+  this.face: ['king', 'queen', 'jack', 'ace']
+  this.value: [2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10, 11]
+// applying suits to the deck of cards
+  this.suit: function () {
+    for (i = 0; i <= suit.length; i++)
+  },
+//  applying faces to the deck of cards
+  this.face: function () {
+      for (i = 0; i <= face.length; i++)
+  },
+// applying value to the deck of cards
+  this.value = function () {
+      for (i = 0; i <= value.length; i++)
+  }
+
+
+}
+
+
+
 // putting 52 suited cards in arrays and setting it to the variable deck.
-var deck = ['aceHearts', 'twoHearts', 'threeHearts', 'fourHearts', 'fiveHearts', 'sixHearts', 'sevenHearts', 'eightHearts', 'nineHearts', 'tenHearts', 'jackHearts', 'queenHearts', 'kingHearts', 'aceClubs', 'twoClubs', 'threeClubs', 'fourClubs', 'fiveClubs', 'sixClubs', 'sevenClubs', 'eightClubs', 'nineClubs', 'tenClubs', 'jackClubs', 'queenClubs', 'kingClubs', 'aceDiamonds', 'twoDiamonds', 'threeDiamonds', 'fourDiamonds', 'fiveDiamonds', 'sixDiamonds', 'sevenDiamonds', 'eightDiamonds', 'nineDiamonds', 'tenDiamonds', 'jackDiamonds', 'queenDiamonds', 'kingDiamonds', 'aceSpades', 'twoSpades', 'threeSpades', 'fourSpades', 'fiveSpades', 'sixSpades', 'sevenSpades', 'eightSpades', 'nineSpades', 'tenSpades', 'jackSpades', 'queenSpades', 'kingSpades'];
+// var deck = ['aceHearts', 'twoHearts', 'threeHearts', 'fourHearts', 'fiveHearts', 'sixHearts', 'sevenHearts', 'eightHearts', 'nineHearts', 'tenHearts', 'jackHearts', 'queenHearts', 'kingHearts', 'aceClubs', 'twoClubs', 'threeClubs', 'fourClubs', 'fiveClubs', 'sixClubs', 'sevenClubs', 'eightClubs', 'nineClubs', 'tenClubs', 'jackClubs', 'queenClubs', 'kingClubs', 'aceDiamonds', 'twoDiamonds', 'threeDiamonds', 'fourDiamonds', 'fiveDiamonds', 'sixDiamonds', 'sevenDiamonds', 'eightDiamonds', 'nineDiamonds', 'tenDiamonds', 'jackDiamonds', 'queenDiamonds', 'kingDiamonds', 'aceSpades', 'twoSpades', 'threeSpades', 'fourSpades', 'fiveSpades', 'sixSpades', 'sevenSpades', 'eightSpades', 'nineSpades', 'tenSpades', 'jackSpades', 'queenSpades', 'kingSpades'];
+//
 
-// making an array that holds the values of each respective card.
-var deckValues = [11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10, 11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10, 11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10, 11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10, 11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10];
-
-console.log(deck);
-console.log(deckValues);
-
-
-
+// var deckValues = [11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10, 11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10, 11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10, 11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10, 11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10];
+//
+// console.log(deck);
+// console.log(deckValues);
+//
+//
+//
+//
+//
 // var deck = for (i = 0; i <= deck.length; i++)
-// //   console.log(i);
+
+//   console.log(i);
 // function deal step one
 //
 // set varibles for
