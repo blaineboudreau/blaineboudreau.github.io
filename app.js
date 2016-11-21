@@ -12,42 +12,59 @@
 // var $tie = $('#tie_id');
 // var $suits = $('#suits');
 
-// making constructor function for the deck of cards that will be usd to assign suit, face, and value to each card later
-var EachCard = function (suit, face, value) {
-    this.suit = suit;
-    this.face = face;
-    this.value = value;
-}
-// using oop to make the deck by using properties from above constuructor function
-var deck = {
-// making an empty array that cards can be pushed in
-  cards: [],
-// making a method makeDeckFunc to make cards
-makeDeckFunc: function () {
-  this.suit = ['hearts', 'spades', 'diamonds', 'clubs'];
-  this.face = ['king', 'queen', 'jack', 'ace'];
-  this.value = [2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10, 11];
-// applying suits to the deck of cards
-  // suitAply: function () {
-    for (i = 0; i <= suit.length; i++);
-    var newCard = EachCard1[i]
-    this.cards.push(newCard);
-  // },
-//  applying faces to the deck of cards
-  // faceAply: function () {
-      for (f = 0; f <= face.length; f++);
-      this.cards.push(face[f]);
-  // },
-// applying value to the deck of cards
-  // valueAply: function () {
-      for (v = 2; v <= value.length; v++);
-      this.cards.push(value[v]);
-  // }
-  }
-}
-var EachCard1 = new EachCard();
-console.log(EachCard1);
 
+
+// making constructor function for each card that will be used to assign suit and rank later
+var Card = function (rank, suit) {
+    this.rank = rank;
+    this.suit = suit;
+};
+// making a constructor function for the deck of cards which will include methods to make the deck, shuffle it, and deal it
+var Deck = function () {
+   this.deck = [];
+   this.makeDeck = makeDeck;
+   this.shuffleDeck = shuffleDeck;
+   this.dealDeck = dealDeck;
+}
+// method to make the deck
+ this.makeDeck = function () {
+// setting arrays suits, ranks to contain each respective value
+  suits = ['hearts', 'spades', 'diamonds', 'clubs'];
+  ranks = ["A", 2, 3, 4, 5, 6, 7, 8, 9, "J", "Q", "K"];
+// making an empty array that will become the deck after the cards are pushed inside
+  this.deck = [];
+// for loop applying suits and ranks to each card four times, then pushing it the deck array
+  for (i = 0; i <= suits.length; i++) {
+    for (r = 0; r <= ranks.length; r++) {
+      this.deck[i * ranks.length + r] = new Card(ranks[r], suits[i]);
+      this.deck.push(new Card(ranks[j], suits[i]));
+    }
+  }
+// Fisher-Yates shuffle
+  this.shuffle = function(this.deck) {
+    for (i = this.deck.length - 1; i > 0; i--) {
+        j = Math.floor(Math.random() * (i + 1));
+        var temp = this.deck[i];
+        this.deck[i] = this.deck[j];
+        this.deck[j] = temp;
+    }
+    return this.deck;
+  }
+
+  this.deal = function () {
+
+  }
+
+};
+var Card1 = new Card();
+console.log(makeDeck);
+console.log(Deck);
+console.log(Card1);
+Deck();
+
+// var EachCard1 = new EachCard();
+// console.log(EachCard1);
+// console.log(deck);
 
 
 
