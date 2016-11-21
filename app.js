@@ -21,32 +21,26 @@ var Card = function (rank, suit) {
 };
 
 var Deck = function () {
-   this.deck = [];
+ this.deck = [];
    // making a constructor function for the deck of cards which will include methods to make the deck, shuffle it, and deal it
-  //  this.makeDeck = makeDeck;
-  //  this.shuffleDeck = shuffleDeck;
-  //  this.dealDeck = dealDeck;
 
 // method to make the deck
  this.makeDeck = function () {
 // setting arrays suits, ranks to contain each respective value
   var suits = ['hearts', 'spades', 'diamonds', 'clubs'];
   var ranks = ["A", 2, 3, 4, 5, 6, 7, 8, 9, 10, "J", "Q", "K"];
-// making an empty array that will become the deck after the cards are pushed inside
-  // this.deck = [];
 // for loop applying suits and ranks to each card four times, then pushing it the deck array
   for (var i = 0; i < suits.length; i++) {
     // console.log(suits[i]);
     for (var r = 0; r < ranks.length; r++) {
       // console.log(ranks[r]);
-      // this.deck[ranks.length * i + r] = new Card(ranks[r], suits[i]);
       this.deck.push(new Card(ranks[r], suits[i]));
-    }
-  }
-}; //end make deck function
+     }
+   }
+ }; //end make deck function
 
 // Fisher-Yates shuffle
-  this.shuffle = function() {
+this.shuffle = function() {
    for (i = this.deck.length - 1; i > 0; i--) {
         j = Math.floor(Math.random() * (i + 1));
         temp = this.deck[i];
@@ -54,7 +48,7 @@ var Deck = function () {
         this.deck[j] = temp;
     }
     return this.deck;
-  } //end shuffle function
+ } //end shuffle function
 // deal method
 //   this.deal = function () {
 // //  use Math.floor and Math.random to recieve a random whole integer from the deck and set to variable cardDealt.
@@ -65,63 +59,91 @@ var Deck = function () {
 //   } //end deal function
   // }
 };
-// var Card1 = new Card();
 var deck1 = new Deck();
 deck1.makeDeck();
 console.log(deck1.deck.length);
-// console.log(makeDeck);
-// console.log(Deck);
-// console.log(Card1);
+
 deck1.shuffle();
 console.log(deck1.deck);
 
+var player = {
+  hand: [],
+  var sum = 0,
+
+  playerHandSum: function () {
+      var sum = 0;
+      for (var i = 0; i < this.hand.length; i++){
+      sum + this.hand[i]; //may have to put = behind +
+    }
+  return sum;
+ },
+
+  playerHit: function () {
+      var hitCard = deck1.deck.pop();
+      this.hand.push(hitCard);
+      //add event listener ("click", ...)
+    },
+
+    //playerStay:
+    
+  // playerBust:function () {
+  //     if (playerHandSum > 21) {
+  //       return alert("Bust");
+  //     }
+  //   },
+
+  // player21: function (){
+      // if (playerHandSum() = 21) {
+      //   return alert("Blackjack, You Win");
+//       }
+// }
+
+
+}
+console.log(player);
+// console.log(player.playerHandSum(player.hand));
+player.playerHit();
+// player.Bust();
 
 
 
+// var dealer = {
+//     hand: []
+//     // dealerHandSum: function () {
+//     //
+//     // // },
 
-
-
-
-// deck1.makeDeck();
-// console.log(deck1.deck);
-// deck1.shuffle();
-// deck1.deal();
-
-
-
-
-
-
-
-// console.log(deck);
-
-// var gamePlay  = {
+       //dealerHit: dealer must hit to certain number
 //
-// };
+//     // dealerBust: function () {
+//     //     var hitCard1 = deck1.deck.pop();
+//     //     this.hand.push(hitCard1);
+//     //   },
+//
+//     // dealer21: function (){
+//     //   if (dealerHandSum() = 21) {
+//     //     return alert("Blackjack, Dealer Wins");
+//     //   }
+//     // }
+//
+//
+// }
 
-// var EachCard1 = new EachCard();
-// console.log(EachCard1);
-// console.log(deck);
 
 
 
-// putting 52 suited cards in arrays and setting it to the variable deck.
-// var deck = ['aceHearts', 'twoHearts', 'threeHearts', 'fourHearts', 'fiveHearts', 'sixHearts', 'sevenHearts', 'eightHearts', 'nineHearts', 'tenHearts', 'jackHearts', 'queenHearts', 'kingHearts', 'aceClubs', 'twoClubs', 'threeClubs', 'fourClubs', 'fiveClubs', 'sixClubs', 'sevenClubs', 'eightClubs', 'nineClubs', 'tenClubs', 'jackClubs', 'queenClubs', 'kingClubs', 'aceDiamonds', 'twoDiamonds', 'threeDiamonds', 'fourDiamonds', 'fiveDiamonds', 'sixDiamonds', 'sevenDiamonds', 'eightDiamonds', 'nineDiamonds', 'tenDiamonds', 'jackDiamonds', 'queenDiamonds', 'kingDiamonds', 'aceSpades', 'twoSpades', 'threeSpades', 'fourSpades', 'fiveSpades', 'sixSpades', 'sevenSpades', 'eightSpades', 'nineSpades', 'tenSpades', 'jackSpades', 'queenSpades', 'kingSpades'];
-//
 
-// var deckValues = [11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10, 11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10, 11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10, 11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10, 11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10];
-//
-// console.log(deck);
-// console.log(deckValues);
-//
-//
-//
-//
-//
-// var deck = for (i = 0; i <= deck.length; i++)
 
-//   console.log(i);
-// function deal step one
+
+
+
+
+
+
+
+
+
+// psuedo code below
 //
 // set varibles for
 // gameboard
