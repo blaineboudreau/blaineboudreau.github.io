@@ -42,9 +42,9 @@ var Deck = function () {
   }
 // Fisher-Yates shuffle
   this.shuffle = function(this.deck) {
-    for (i = this.deck.length - 1; i > 0; i--) {
+   for (i = this.deck.length - 1; i > 0; i--) {
         j = Math.floor(Math.random() * (i + 1));
-        var temp = this.deck[i];
+        temp = this.deck[i];
         this.deck[i] = this.deck[j];
         this.deck[j] = temp;
     }
@@ -52,7 +52,9 @@ var Deck = function () {
   }
 
   this.deal = function () {
-
+    if (this.deck.length > 0) {
+      return.this.deck.pop();
+    }
   }
 
 };
