@@ -19,13 +19,14 @@ var Card = function (rank, suit) {
     this.rank = rank;
     this.suit = suit;
 };
-// making a constructor function for the deck of cards which will include methods to make the deck, shuffle it, and deal it
+
 var Deck = function () {
    this.deck = [];
-   this.makeDeck = makeDeck;
-   this.shuffleDeck = shuffleDeck;
-   this.dealDeck = dealDeck;
-}
+   // making a constructor function for the deck of cards which will include methods to make the deck, shuffle it, and deal it
+  //  this.makeDeck = makeDeck;
+  //  this.shuffleDeck = shuffleDeck;
+  //  this.dealDeck = dealDeck;
+
 // method to make the deck
  this.makeDeck = function () {
 // setting arrays suits, ranks to contain each respective value
@@ -36,12 +37,12 @@ var Deck = function () {
 // for loop applying suits and ranks to each card four times, then pushing it the deck array
   for (i = 0; i <= suits.length; i++) {
     for (r = 0; r <= ranks.length; r++) {
-      this.deck[i * ranks.length + r] = new Card(ranks[r], suits[i]);
-      this.deck.push(new Card(ranks[j], suits[i]));
+      this.deck[ranks.length * i + r] = new Card(ranks[r], suits[i]);
+      this.deck.push(new Card(ranks[r], suits[i]));
     }
   }
 // Fisher-Yates shuffle
-  this.shuffle = function(this.deck) {
+  this.shuffle = function() {
    for (i = this.deck.length - 1; i > 0; i--) {
         j = Math.floor(Math.random() * (i + 1));
         temp = this.deck[i];
@@ -59,17 +60,20 @@ var Deck = function () {
     return this.deck[cardDealt];
     }
   }
-
 };
 var Card1 = new Card();
 var Deck1 = new Deck();
-console.log(makeDeck);
+// console.log(makeDeck);
 console.log(Deck);
 console.log(Card1);
 Deck1.makeDeck();
 Deck1.shuffle();
 Deck1.deal();
+console.log(this.deck);
 
+// var gamePlay  = {
+//
+// };
 
 // var EachCard1 = new EachCard();
 // console.log(EachCard1);
