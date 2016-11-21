@@ -30,17 +30,21 @@ var Deck = function () {
 // method to make the deck
  this.makeDeck = function () {
 // setting arrays suits, ranks to contain each respective value
-  suits = ['hearts', 'spades', 'diamonds', 'clubs'];
-  ranks = ["A", 2, 3, 4, 5, 6, 7, 8, 9, "J", "Q", "K"];
+  var suits = ['hearts', 'spades', 'diamonds', 'clubs'];
+  var ranks = ["A", 2, 3, 4, 5, 6, 7, 8, 9, 10, "J", "Q", "K"];
 // making an empty array that will become the deck after the cards are pushed inside
-  this.deck = [];
+  // this.deck = [];
 // for loop applying suits and ranks to each card four times, then pushing it the deck array
-  for (i = 0; i <= suits.length; i++) {
-    for (r = 0; r <= ranks.length; r++) {
-      this.deck[ranks.length * i + r] = new Card(ranks[r], suits[i]);
+  for (var i = 0; i < suits.length; i++) {
+    // console.log(suits[i]);
+    for (var r = 0; r < ranks.length; r++) {
+      // console.log(ranks[r]);
+      // this.deck[ranks.length * i + r] = new Card(ranks[r], suits[i]);
       this.deck.push(new Card(ranks[r], suits[i]));
     }
   }
+}; //end make deck function
+
 // Fisher-Yates shuffle
   this.shuffle = function() {
    for (i = this.deck.length - 1; i > 0; i--) {
@@ -50,26 +54,46 @@ var Deck = function () {
         this.deck[j] = temp;
     }
     return this.deck;
-  }
+  } //end shuffle function
 // deal method
-  this.deal = function () {
-//  use Math.floor and Math.random to recieve a random whole integer from the deck and set to variable cardDealt.
-    var cardDealt = Math.floor(Math.random() * this.deck.length);
-  // .splice tell us to remove the card dealt from the deck array and to only remove that element.
-    this.deck.splice(cardDealt, 1);
-    return this.deck[cardDealt];
-    }
-  }
+//   this.deal = function () {
+// //  use Math.floor and Math.random to recieve a random whole integer from the deck and set to variable cardDealt.
+//     var cardDealt = Math.floor(Math.random() * this.deck.length); //change to .pop or .shift
+//   // .splice tell us to remove the card dealt from the deck array and to only remove that element.
+//     this.deck.splice(cardDealt, 1);
+//     return this.deck[cardDealt];
+//   } //end deal function
+  // }
 };
-var Card1 = new Card();
-var Deck1 = new Deck();
+// var Card1 = new Card();
+var deck1 = new Deck();
+deck1.makeDeck();
+console.log(deck1.deck.length);
 // console.log(makeDeck);
-console.log(Deck);
-console.log(Card1);
-Deck1.makeDeck();
-Deck1.shuffle();
-Deck1.deal();
-console.log(this.deck);
+// console.log(Deck);
+// console.log(Card1);
+deck1.shuffle();
+console.log(deck1.deck);
+
+
+
+
+
+
+
+
+// deck1.makeDeck();
+// console.log(deck1.deck);
+// deck1.shuffle();
+// deck1.deal();
+
+
+
+
+
+
+
+// console.log(deck);
 
 // var gamePlay  = {
 //
