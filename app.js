@@ -50,19 +50,26 @@ var Deck = function () {
     }
     return this.deck;
   }
-
+// deal method
   this.deal = function () {
-    if (this.deck.length > 0) {
-      return.this.deck.pop();
+//  use Math.floor and Math.random to recieve a random whole integer from the deck and set to variable cardDealt.
+    var cardDealt = Math.floor(Math.random() * this.deck.length);
+  // .splice tell us to remove the card dealt from the deck array and to only remove that element.
+    this.deck.splice(cardDealt, 1);
+    return this.deck[cardDealt];
     }
   }
 
 };
 var Card1 = new Card();
+var Deck1 = new Deck();
 console.log(makeDeck);
 console.log(Deck);
 console.log(Card1);
-Deck();
+Deck1.makeDeck();
+Deck1.shuffle();
+Deck1.deal();
+
 
 // var EachCard1 = new EachCard();
 // console.log(EachCard1);
