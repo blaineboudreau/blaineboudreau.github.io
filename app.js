@@ -15,9 +15,10 @@
 
 
 // making constructor function for each card that will be used to assign suit and rank later
-var Card = function (rank, suit) {
+var Card = function (rank, suit, value) {
     this.rank = rank;
     this.suit = suit;
+    // this.value = value;
 };
 
 var Deck = function () {
@@ -28,7 +29,7 @@ var Deck = function () {
  this.makeDeck = function () {
 // setting arrays suits, ranks to contain each respective value
   var suits = ['hearts', 'spades', 'diamonds', 'clubs'];
-  var ranks = ["A", 2, 3, 4, 5, 6, 7, 8, 9, 10, "J", "Q", "K"];
+  var ranks = [11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10];
 // for loop applying suits and ranks to each card four times, then pushing it the deck array
   for (var i = 0; i < suits.length; i++) {
     // console.log(suits[i]);
@@ -54,9 +55,9 @@ this.shuffle = function() {
 // //  use Math.floor and Math.random to recieve a random whole integer from the deck and set to variable cardDealt.
 //     var cardDealt = Math.floor(Math.random() * this.deck.length); //change to .pop or .shift
 //   // .splice tell us to remove the card dealt from the deck array and to only remove that element.
-//     this.deck.splice(cardDealt, 1);
-//     return this.deck[cardDealt];
-//   } //end deal function
+// //     this.deck.splice(cardDealt, 1);
+// //     return this.deck[cardDealt];
+// //   } //end deal function
   // }
 };
 var deck1 = new Deck();
@@ -66,26 +67,26 @@ console.log(deck1.deck.length);
 deck1.shuffle();
 console.log(deck1.deck);
 
+
 var player = {
-  hand: [],
-  var sum = 0,
+  hand: [1, 3],
+  // var sum = 0,
 
   playerHandSum: function () {
       var sum = 0;
       for (var i = 0; i < this.hand.length; i++){
-      sum + this.hand[i]; //may have to put = behind +
+      sum += this.hand[i]; //may have to put = behind +
     }
   return sum;
- },
+  },
 
   playerHit: function () {
       var hitCard = deck1.deck.pop();
       this.hand.push(hitCard);
       //add event listener ("click", ...)
-    },
-
+  },
     //playerStay:
-    
+
   // playerBust:function () {
   //     if (playerHandSum > 21) {
   //       return alert("Bust");
@@ -97,14 +98,13 @@ var player = {
       //   return alert("Blackjack, You Win");
 //       }
 // }
-
-
 }
+// calling dealer function only when appropiate
 console.log(player);
 // console.log(player.playerHandSum(player.hand));
 player.playerHit();
 // player.Bust();
-
+console.log(player.playerHandSum());
 
 
 // var dealer = {
