@@ -20,17 +20,15 @@ var Card = function (rank, suit, value) {
     this.suit = suit;
     // this.value = value;
 };
-
+   // making a constructor function for the deck of cards which will include methods to make the deck and shuffle it
 var Deck = function () {
  this.deck = [];
-   // making a constructor function for the deck of cards which will include methods to make the deck, shuffle it, and deal it
-
 // method to make the deck
  this.makeDeck = function () {
-// setting arrays suits, ranks to contain each respective value
+// setting arrays suits, ranks to contain each respective value... ranks literally is the value
   var suits = ['hearts', 'spades', 'diamonds', 'clubs'];
   var ranks = [11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10];
-// for loop applying suits and ranks to each card four times, then pushing it the deck array
+// for loop applying suits and ranks to each card four times, then pushing it the deck array via our card constructor object
   for (var i = 0; i < suits.length; i++) {
     // console.log(suits[i]);
     for (var r = 0; r < ranks.length; r++) {
@@ -40,7 +38,7 @@ var Deck = function () {
    }
  }; //end make deck function
 
-// Fisher-Yates shuffle
+// Fisher-Yates shuffle algorithm
 this.shuffle = function() {
    for (i = this.deck.length - 1; i > 0; i--) {
         j = Math.floor(Math.random() * (i + 1));
@@ -67,25 +65,35 @@ console.log(deck1.deck.length);
 deck1.shuffle();
 console.log(deck1.deck);
 
-
+// creating a player object
 var player = {
-  hand: [1, 3],
-  // var sum = 0,
-
+  hand: [],
+// method for getting sum of player hand
   playerHandSum: function () {
       var sum = 0;
-      for (var i = 0; i < this.hand.length; i++){
-      sum += this.hand[i]; //may have to put = behind +
-    }
-  return sum;
-  },
+      //need another loop here
+      // Object.keys(player).forEach(function(key){
+      //   var value = player[key];
+      //   console.log(value);
+      // for (var a = 0; a < player.hand.length; a++) {
+        for (var i = 0; i < this.hand.length; i++){
+        sum += this.hand[i]; //may have to put = behind +
+        }
+      // }
 
+  return sum;
+// })
+  },
+// method for player to hit
   playerHit: function () {
       var hitCard = deck1.deck.pop();
       this.hand.push(hitCard);
       //add event listener ("click", ...)
   },
-    //playerStay:
+    //playerStay: function () {
+      //add event listener("click", player stays... switch to dealer)
+  // },
+
 
   // playerBust:function () {
   //     if (playerHandSum > 21) {
@@ -103,22 +111,32 @@ var player = {
 console.log(player);
 // console.log(player.playerHandSum(player.hand));
 player.playerHit();
+player.playerHit();
+
+// });
 // player.Bust();
 console.log(player.playerHandSum());
-
+// console.log(player.playerHandSum());
 
 // var dealer = {
 //     hand: []
 //     // dealerHandSum: function () {
-//     //
+//     // for (var i = 0; i < this.hand.length; i++){
+        //   sum += this.hand[i]; //may have to put = behind +
+        // }
 //     // // },
+// dealer must hit to certain number
+       //dealerHit:  function () {
+       //       var hitCard1 = deck1.deck.pop();
+       //       this.hand.push(hitCard1);
+  //     },
 
-       //dealerHit: dealer must hit to certain number
 //
-//     // dealerBust: function () {
-//     //     var hitCard1 = deck1.deck.pop();
-//     //     this.hand.push(hitCard1);
-//     //   },
+          // dealerBust: function () {
+          //   if (dealerHandSum > 21) {
+          //     return alert("Bust");
+          //   }
+          //  },
 //
 //     // dealer21: function (){
 //     //   if (dealerHandSum() = 21) {
@@ -129,8 +147,23 @@ console.log(player.playerHandSum());
 //
 // }
 
-
-
+//
+// var Bank = {
+//
+//   bankStart: 200,
+//   playerBet: 10,
+//   dealerBet: 10,
+//
+//   makeBet: funtion() {
+//
+//   }
+//
+//
+//
+//
+//
+//
+// }
 
 
 
