@@ -28,6 +28,7 @@ var Deck = function () {
 // setting arrays suits, ranks to contain each respective value... ranks literally is the value
   var suits = ['hearts', 'spades', 'diamonds', 'clubs'];
   var ranks = [11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10];
+
 // for loop applying suits and ranks to each card four times, then pushing it the deck array via our card constructor object
   for (var i = 0; i < suits.length; i++) {
     // console.log(suits[i]);
@@ -77,7 +78,7 @@ var player = {
       //   console.log(value);
       // for (var a = 0; a < player.hand.length; a++) {
         for (var i = 0; i < this.hand.length; i++){
-        sum += this.hand[i]; //may have to put = behind +
+        sum += this.hand[i].rank; //may have to put = behind +
         }
       // }
 
