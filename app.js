@@ -66,17 +66,18 @@ var player = {
   playerDealStart: function () {
       var playerDealPop = deck1.deck.pop();
       // console.log(playerDealPop);
-      var addPop = player.hand.push(playerDealPop);
-      console.log(addPop);
+      var addPop = this.hand.push(playerDealPop);
+      // console.log(addPop);
       var playerDealPop1 = deck1.deck.pop();
       // console.log(playerDealPop);
-      var addPop1 = player.hand.push(playerDealPop1);
-      console.log(addPop1);
+      var addPop1 = this.hand.push(playerDealPop1);
+      // console.log(addPop1);
 
   },
-
+//creating method to return value of players hand
   playerHandSum: function () {
       var sum = 0;
+      // unig for loop iterate through array hand and setting sum equal to eachs cards value added together
         for (var i = 0; i < this.hand.length; i++){
         sum += this.hand[i].rank; //may have to put = behind +
         }
@@ -86,22 +87,25 @@ var player = {
   },
 // method for player to hit
   playerHit: function () {
+    //popping off the last card from the deck and pushing it into array hand
       var hitCard = deck1.deck.pop();
       this.hand.push(hitCard);
       //add event listener ("click", ...)
   },
-
+// method for player to stay
   playerStay: function () {
       // add event listener("click", player stays... switch to dealer)
   },
-
+// method for player bust
   playerBust:function () {
+    //if the players hand's value is greater than 21 player bust
       if (this.playerHandSum() > 21) {
         return alert("Bust");
       }
   },
-
+// method for player blackjack
   player21: function () {
+    // if players hand is 21 then player recieves message "Blackjack, You Win"
       if (this.playerHandSum() === 21) {
         return alert("Blackjack, You Win");
       }
@@ -123,42 +127,42 @@ var player = {
 // console.log(player.playerHandSum());
 
 //----------------------dealer object---------------------------
-
+// same as player object only geared toward dealer
 var dealer = {
-  hand: [],
+  handD: [],
 
   dealerDealStart: function () {
       var dealerDealPop = deck1.deck.pop();
-      // console.log(playerDealPop);
-      var addPopD = player.hand.push(dealerDealPop);
-      console.log(addPopD);
-      var playerDealPopD1 = deck1.deck.pop();
-      // console.log(playerDealPop);
-      var addPopD1 = player.hand.push(dealerDealPopD1);
-      console.log(addPopD1);
+      // console.log(dealerDealPop);
+      var addPopD = this.handD.push(dealerDealPop);
+      // console.log(addPopD);
+      var dealerDealPopD1 = deck1.deck.pop();
+      // console.log(dealerDealPopD1);
+      var addPopD1 = this.handD.push(dealerDealPopD1);
+      // console.log(addPopD1);
 
   },
 
   dealerHandSum: function () {
     var sum = 0;
-    for (var i = 0; i < this.hand.length; i++){
-    sum += this.hand[i].rank;
+    for (var i = 0; i < this.handD.length; i++){
+    sum += this.handD[i].rank;
     }
   return sum;
 
   },
 
-// dealer must hit to certain number
+// dealer must hit until hands value reaches 17 or above
   dealerHit:  function () {
     if (dealerHandSum() < 18) {
       var hitCard1 = deck1.deck.pop();
-      this.hand.push(hitCard1);
+      this.handD.push(hitCard1);
     }
   },
 
 
   dealerStay: function () {
-      if (dealerHandSum() > 16){
+      if (dealerHandSum() > 16) {
         //stay switch to player turn
       }
       // add event listener("click", dealer stays... switch to dealer)
@@ -180,30 +184,71 @@ var dealer = {
 
 // object bank
 var bank = {
-// bank starts at 200, bets at incrimented by 10 per click,
+// bank starts at 200, bets are incrimented by 10 per click
   bankStart: 200,
   playerBet: 10,
   playerBetDisplay: [],
 
-//
+// method to make make a bet
   makeBet: function () {
+    // current bet is equal to 10 * the number of times bet button is clicked
     var currentBet = 0;
-    var newBet = currentBet + bank.playerBet;
+    //event listener ?
+    var newBet = currentBet + this.playerBet;
     console.log(newBet);
-    bank.playerBetDisplay.push(newBet);
-    console.log(bank.playerBetDisplay);
-    var newBank = bank.bankStart - bank.playerBet;
+    // bet is pushed into bet display array
+    this.playerBetDisplay.push(newBet);
+    console.log(this.playerBetDisplay);
+    // bank start (total) is decremented by 10 times number of times bet button is clicked
+    var newBank = this.bankStart - this.playerBet;
     console.log(newBank);
+
+  },
+// unfinished reset method
+  reset: function () {
+    var rsDlrHnd = dealer.dealerDealStart();
+    console.log(rsDlrHnd);
+    var rsPlyrHnd = player.playerDealStart();
+    console.log(rsPlyrHnd);
 
   }
 
-}
 
+}
+//returning undefined
 console.log(bank.makeBet());
 
 
 //------------ gameplay-------------------
 
+var reset1 = function () {
+  console.log(bank.reset());
+}
+console.log(reset1());
+// console.log(player.playerDealStart());
+// console.log(dealer.dealerDealStart());
+// console.log(player.hand);
+// console.log(dealer.handD);
+// console.log(player.playerHandSum());
+
+// var blackjack = function () {
+//   var deck
+//   var wins
+//   var loses
+// }
+//
+// var declarewinner = function () {
+//   userhand/dealer hand
+// }
+//
+// var outcome = [],
+// var dealerscore = dealerhand.score(),
+// var user score = use hand.score
+// if (userscore is less than 21 or two lines dealer scroe ==== 21)
+// outcome = you lose
+//
+// losses ++;
+// else if user less than equal
 
 
 
@@ -265,13 +310,13 @@ console.log(bank.makeBet());
 // tie
 // messages you win and you lose
 //
-//
+//edited for ln 276-279:
 // set functions(maybe constructor objects) for
 // deal
 // bet
 // score
 //
-//
+
 // use if else statements for
 // player to dealer totals including: bust, tie, win, lose
 //
