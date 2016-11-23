@@ -12,10 +12,10 @@
 // var $tie = $('#tie_id');
 // var $suits = $('#suits');
 
-
+//------Below is the making of shuffled deck---------------------
 
 // making constructor function for each card that will be used to assign suit and rank later
-var Card = function (rank, suit, value) {
+var Card = function (rank, suit) {
     this.rank = rank;
     this.suit = suit;
     // this.value = value;
@@ -49,15 +49,7 @@ this.shuffle = function() {
     }
     return this.deck;
  } //end shuffle function
-// deal method
-//   this.deal = function () {
-// //  use Math.floor and Math.random to recieve a random whole integer from the deck and set to variable cardDealt.
-//     var cardDealt = Math.floor(Math.random() * this.deck.length); //change to .pop or .shift
-//   // .splice tell us to remove the card dealt from the deck array and to only remove that element.
-// //     this.deck.splice(cardDealt, 1);
-// //     return this.deck[cardDealt];
-// //   } //end deal function
-  // }
+
 };
 var deck1 = new Deck();
 deck1.makeDeck();
@@ -66,24 +58,31 @@ console.log(deck1.deck.length);
 deck1.shuffle();
 console.log(deck1.deck);
 
+//------------------------player object--------------------------
 // creating a player object
 var player = {
   hand: [],
 // method for getting sum of player hand
+  playerDealStart: function () {
+      var playerDealPop = deck1.deck.pop();
+      // console.log(playerDealPop);
+      var addPop = player.hand.push(playerDealPop);
+      console.log(addPop);
+      var playerDealPop1 = deck1.deck.pop();
+      // console.log(playerDealPop);
+      var addPop1 = player.hand.push(playerDealPop1);
+      console.log(addPop1);
+
+  },
+
   playerHandSum: function () {
       var sum = 0;
-      //need another loop here
-      // Object.keys(player).forEach(function(key){
-      //   var value = player[key];
-      //   console.log(value);
-      // for (var a = 0; a < player.hand.length; a++) {
         for (var i = 0; i < this.hand.length; i++){
         sum += this.hand[i].rank; //may have to put = behind +
         }
-      // }
 
   return sum;
-// })
+
   },
 // method for player to hit
   playerHit: function () {
@@ -91,80 +90,152 @@ var player = {
       this.hand.push(hitCard);
       //add event listener ("click", ...)
   },
-    //playerStay: function () {
-      //add event listener("click", player stays... switch to dealer)
-  // },
+
+  playerStay: function () {
+      // add event listener("click", player stays... switch to dealer)
+  },
+
+  playerBust:function () {
+      if (this.playerHandSum() > 21) {
+        return alert("Bust");
+      }
+  },
+
+  player21: function () {
+      if (this.playerHandSum() === 21) {
+        return alert("Blackjack, You Win");
+      }
+  },
 
 
-  // playerBust:function () {
-  //     if (playerHandSum > 21) {
-  //       return alert("Bust");
-  //     }
-  //   },
 
-  // player21: function (){
-      // if (playerHandSum() = 21) {
-      //   return alert("Blackjack, You Win");
-//       }
-// }
-}
+};
 // calling dealer function only when appropiate
-console.log(player);
+// console.log(player);
 // console.log(player.playerHandSum(player.hand));
-player.playerHit();
-player.playerHit();
 
-// });
-// player.Bust();
-console.log(player.playerHandSum());
+// player.playerHit();
+// player.playerHit();
+// player.playerDealStart();
+// console.log(player.hand);
+// console.log(player.playerBust());
+// console.log(player.player21());
 // console.log(player.playerHandSum());
 
-// var dealer = {
-//     hand: []
-//     // dealerHandSum: function () {
-//     // for (var i = 0; i < this.hand.length; i++){
-        //   sum += this.hand[i]; //may have to put = behind +
-        // }
-//     // // },
+//----------------------dealer object---------------------------
+
+var dealer = {
+  hand: [],
+
+  dealerDealStart: function () {
+      var dealerDealPop = deck1.deck.pop();
+      // console.log(playerDealPop);
+      var addPopD = player.hand.push(dealerDealPop);
+      console.log(addPopD);
+      var playerDealPopD1 = deck1.deck.pop();
+      // console.log(playerDealPop);
+      var addPopD1 = player.hand.push(dealerDealPopD1);
+      console.log(addPopD1);
+
+  },
+
+  dealerHandSum: function () {
+    var sum = 0;
+    for (var i = 0; i < this.hand.length; i++){
+    sum += this.hand[i].rank;
+    }
+  return sum;
+
+  },
+
 // dealer must hit to certain number
-       //dealerHit:  function () {
-       //       var hitCard1 = deck1.deck.pop();
-       //       this.hand.push(hitCard1);
-  //     },
+  dealerHit:  function () {
+    if (dealerHandSum() < 18) {
+      var hitCard1 = deck1.deck.pop();
+      this.hand.push(hitCard1);
+    }
+  },
+
+
+  dealerStay: function () {
+      if (dealerHandSum() > 16){
+        //stay switch to player turn
+      }
+      // add event listener("click", dealer stays... switch to dealer)
+  },
+
+  dealerBust: function () {
+    if (dealerHandSum() > 21) {
+      return alert("Bust");
+    }
+  },
+
+  dealer21: function (){
+    if (dealerHandSum() = 21) {
+      return alert("Dealer Blackjack, You Lose");
+    }
+  },
+
+}
+
+// object bank
+var bank = {
+// bank starts at 200, bets at incrimented by 10 per click,
+  bankStart: 200,
+  playerBet: 10,
+  playerBetDisplay: [],
 
 //
-          // dealerBust: function () {
-          //   if (dealerHandSum > 21) {
-          //     return alert("Bust");
-          //   }
-          //  },
-//
-//     // dealer21: function (){
-//     //   if (dealerHandSum() = 21) {
-//     //     return alert("Blackjack, Dealer Wins");
-//     //   }
-//     // }
-//
-//
-// }
+  makeBet: function () {
+    var currentBet = 0;
+    var newBet = currentBet + bank.playerBet;
+    console.log(newBet);
+    bank.playerBetDisplay.push(newBet);
+    console.log(bank.playerBetDisplay);
+    var newBank = bank.bankStart - bank.playerBet;
+    console.log(newBank);
 
+  }
+
+}
+
+console.log(bank.makeBet());
+
+
+//------------ gameplay-------------------
+
+
+
+
+
+// reset: player and dealer receive hands
+// player bets atleast minimum
+// player either hits or stays
+// dealer auto hits/stays depending if hand is under 17
+// player bets if wants
+// player hits or stays
 //
-// var Bank = {
+// winning/losing conditions including
+// if player or dealer bust or
+// if player or dealer reach 21 or
+// if player hand is closer to 21 then dealers
 //
-//   bankStart: 200,
-//   playerBet: 10,
-//   dealerBet: 10,
+// next round
+// reset:player and dealer hands
+// repeat process
 //
-//   makeBet: funtion() {
-//
-//   }
-//
-//
-//
-//
-//
-//
-// }
+// bank must change in accordance with bets
+
+
+
+
+
+
+
+
+
+
+
 
 
 
