@@ -1,16 +1,16 @@
-//------Below is the making of shuffled deck---------------------
+//------making a shuffled deck of cards---------------------
 
-// making constructor function for each card that will be used to assign suit and rank later
+// constructor function for each card that will be used to assign a suit and a rank(rank doubles as value for now)
 var Card = function (rank, suit) {
-    this.rank = rank;
-    this.suit = suit;
+ this.rank = rank;
+ this.suit = suit;
 };
-   // making a constructor function for the deck of cards which will include methods to make the deck and shuffle it
+// constructor function for the deck of cards which will include methods to make the deck and shuffle it
 var Deck = function () {
  this.deck = [];
 // method to make the deck
  this.makeDeck = function () {
-// setting arrays suits, ranks to contain each respective value... ranks literally is the value
+// declaring suits and ranks to each respective array
   var suits = ['hearts', 'spades', 'diamonds', 'clubs'];
   var ranks = [11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10];
 
@@ -25,6 +25,7 @@ var Deck = function () {
  }; //end make deck function
 
 // Fisher-Yates shuffle algorithm
+// a popular algorithm that best simulates shuffling items in a set. The Fisher-Yates shuffle effectively takes each item in the set and randomly picks an item until no items are left.
 this.shuffle = function() {
    for (i = this.deck.length - 1; i > 0; i--) {
         j = Math.floor(Math.random() * (i + 1));
@@ -38,18 +39,17 @@ this.shuffle = function() {
 };
 var deck1 = new Deck();
 deck1.makeDeck();
-// console.log(deck1.deck.length);
-
 deck1.shuffle();
 console.log(deck1.deck);
 
-//------------------------player object--------------------------
+//------------------------player object------------------
+
 // creating a player object
 var player = {
   hand: [],
 
-//creating method to return value of players hand
-  playerHandSum: function () {
+// method to return value of players hand
+  handValue: function () {
       var sum = 0;
       // using for loop to iterate through array hand's length, sum is equilivent to sum of hand's value
         for (var i = 0; i < this.hand.length; i++){
@@ -60,10 +60,12 @@ var player = {
 
   },
 // method for player to hit
-  playerHit: function () {
-    //popping off the last card from the deck and pushing it into array hand
+  hit: function () {
+      // .pop takes last card object from deck
       var hitCard = deck1.deck.pop();
+      // .push takes said card object and places it into array hand
       this.hand.push(hitCard);
+      // this and dot notation provides appropiate scope
       console.log(this.hand);
 
   },
@@ -71,7 +73,7 @@ var player = {
 // method for player bust
   checkBust:function () {
     //if the players hand's value is greater than 21 player bust
-      if (this.playerHandSum() > 21) {
+      if (this.handValue() > 21) {
         return alert("Bust");
       }
   },
@@ -83,140 +85,120 @@ var player = {
 
 
 //----------------------dealer object---------------------------
-// similar to player object only geared toward dealer, with conditions for dealer to auto hit/stay
+
+// similar to player object
 var dealer = {
-  handD: [],
+  hand: [],
 
 
-  dealerHandSum: function () {
-    var sum1 = 0;
-    for (var i = 0; i < this.handD.length; i++){
-    sum1 += this.handD[i].rank;
+  handValue: function () {
+    var sum = 0;
+    // using for loop to iterate through array hand's length, sum is equilivent to sum of hand's value
+    for (var i = 0; i < this.hand.length; i++){
+    sum += this.hand[i].rank;
     }
-  return sum1;
+  return sum;
 
   },
 // dealer must hit until hands value reaches 17 or above
-  dealerHit:  function () {
-    while (this.dealerHandSum() < 17) {
-      var hitCard1 = deck1.deck.pop();
-      this.handD.push(hitCard1);
-      console.log(this.handD);
+  hit:  function () {
+    // while loop specifiec that while dealers hand is values at under 17, the dealer must hit
+    while (this.handValue() < 17) {
+      // .pop takes last card object from deck
+      var hitCard = deck1.deck.pop();
+      // .push takes said card object and places it into array hand
+      this.hand.push(hitCard);
+      // this and dot notation provides appropiate scope
+      console.log(this.hand);
     }
   },
 
-  checkBustD: function () {
+  checkBust: function () {
       //if the dealers hand's value is greater than 21 dealer bust
-    if (this.dealerHandSum() > 21) {
+    if (this.handValue() > 21) {
        return alert("Bust");
         }
-    },
-
-
+  },
 
 }
 
-// object bank - fix so 10 is not taken from 200 but from updated bank value
-var bank = {
-// bank starts at 200, bets are incrimented by 10 per click
-  bankStart: 200,
-  playerBet: 10,
-  playerBetDisplay: [],
 
-// method to make make a bet
-  bet: function () {
-    // current bet is equal to 10 * the number of times bet button is clicked
-    var currentBet = 0;
-    var newBet = currentBet + this.playerBet;
-    console.log(newBet);
-    // bet is pushed into bet display array
-    this.playerBetDisplay.push(newBet);
-    console.log(this.playerBetDisplay);
-    // bank start (total) is decremented by 10 times number of times bet button is clicked
-    var newBank = this.bankStart - this.playerBet;
-    console.log(newBank);
-
-  }
-
-
-} // end bank object
 
 
 //------------ gameplay-------------------
 
 
 
-
-player.playerHit();
-player.playerHit();
+// deal players hand
+player.hit();
+player.hit();
 
 // if
 
 
 //-----------DOM manipulation--------------
 
-
+//window onload
 $(function() {
+  // grab hit button elemenet by id. add event listener
   $('#hit').on('click', function() {
-    player.playerHit();
+    // event handler: player hits
+    player.hit();
+    // check to see if busted
     player.checkBust();
-    $('#playerDisplay').text(player.playerHandSum());
+    // the players card total is displayed on screen/updated as needed
+    $('#playerDisplay').text(player.handValue());
 
   })
-  $('#playerDisplay').text(player.playerHandSum());
-
+  // the players card total is displayed on screen
+  $('#playerDisplay').text(player.handValue());
+  // grab stay button elemenet by id. add event listener
   $('#stay').on('click', function() {
-    dealer.dealerHit();
-    dealer.checkBustD();
-    $('#dealerDisplay').text(dealer.dealerHandSum());
-
+    // event handler: dealer hits until reaches 17
+    dealer.hit();
+    // check to see if busted
+    dealer.hit();
+    // the dealers card total is displayed on screen/updated as needed
+    $('#dealerDisplay').text(dealer.handValue());
   })
+  // grab bet button elemenet by id. add event listener
   $('#bet').on('click', function() {
+    // set bet amount to 10
     var bet = 10;
+    // .html() is used to empty content in element and replace with new content
+    // declaring altered bet button to variable currentBet
     var currentBet = $("#bet").html();
+    // declaring altered bankDisplay to variable
     var bankDisplay = $("#bankDisplay").html();
+    // using a conditional statement. if currentBet, execute altered bet button
     if(currentBet) {
-      $("#bet").html(bet);
+      $("#bet").html('bet: + ' + bet);
       }
+    // altered bankDisplay reflects bank amount minus bet
     $("#bankDisplay").html(bankDisplay - bet)
   })
 
-  // $('#bankDisplay').text(currentBet)
 
-  // $('#bet').on('click', function(){
-  //   bank.bet();
-  // })
-// jQueryElement.text("some text")
-// document.elementID.innerText = value
-// get value from input box after click: $('#idName').val()
 
-// $('#playerDisplay').val()
-
-//if dealer bust player wins and bank increases by bet amount
-//if dealer stayes then compare hands to determine the winner, if player wins then increase bank by bet amount
+// winning/losing conditions including
+// if player or dealer bust or
+// if player or dealer reach 21 or
+// if player hand is closer to 21 then dealers
 //
+// next round
+// reset:player and dealer hands
+// repeat process
 
-
-
+// if dealer bust player wins and bank increases by bet amount
+// if dealer stayes then compare hands to determine the winner, if player wins then increase bank by bet amount
+// needs display for amount player bets per round
 
 
 })//end window.onload
 
-// bank must change in accordance with bets
-// input boxes are needed for bank, player hand, and dealer hand. bank input box should change according to bets and winning/losing bets. player and dealer hand should reset each time someone wins a hand aka always dislay the sum of each hand respectively
 
-// var $gameBoard = $('#gameboard');
-var $bank1 = $('#bank');
-// var $bankRoll = $('#bankRoll');
-var $bet1 = $('#bet');
-var $playerDisplay1 = $('#playerDisplay');
-var $dealerDisplay1 = $('#dealerDisplay');
-// var $playerTotal = $('#playertotal');
-// var $bust = $('#bust_id');
-// var $win = $('#win_id');
-// var $lose = $('#lose_id');
-// var $tie = $('#tie_id');
-// var $suits = $('#suits');
+
+
 
 // var blackjack = function () {
 //   var deck
@@ -231,30 +213,25 @@ var $dealerDisplay1 = $('#dealerDisplay');
 // var outcome = [],
 // var dealerscore = dealerhand.score(),
 // var user score = use hand.score
-// if (userscore is less than 21 or two lines dealer scroe ==== 21)
+// if (userscore is less than 21 or dealer score ==== 21)
 // outcome = you lose
 //
 // losses ++;
 // else if user less than equal
 
 
+// Your game of Blackjack must have at minimum:
+//
+// [ ] A way to keep track of the current player bankroll (a player should be able to play consecutive hands and the bankroll should reflect wins and losses)
+// [x] A way for the player to make a bet
+// [x] A way for the player to get more cards, or declare themselves happy with their current hand
+// [x] A way for the player to bust
+// [ ] A way for the player to win
+// [x] Game logic for the dealer to hit until a certain point
 
 
-// reset: player and dealer receive hands
-// player bets atleast minimum
-// player either hits or stays
-// dealer auto hits/stays depending if hand is under 17
-// player bets if wants
-// player hits or stays
-//
-// winning/losing conditions including
-// if player or dealer bust or
-// if player or dealer reach 21 or
-// if player hand is closer to 21 then dealers
-//
-// next round
-// reset:player and dealer hands
-// repeat process
+
+
 
 
 
@@ -335,8 +312,9 @@ var $dealerDisplay1 = $('#dealerDisplay');
 //     console.log(this.hand);
 //
 // },
+
 // var $gameBoard = $('#gameboard');
-// var $bankRoll = $('#bankroll');
+// var $bank = $('#bank');
 // var $dealerCard = $('#dealercard');
 // var $playerCard = $('#playercard');
 // var $dealerTotal = $('#dealertotal');
@@ -346,3 +324,6 @@ var $dealerDisplay1 = $('#dealerDisplay');
 // var $lose = $('#lose_id');
 // var $tie = $('#tie_id');
 // var $suits = $('#suits');
+// var $bet = $('#bet');
+// var $playerDisplay = $('#playerDisplay');
+// var $dealerDisplay = $('#dealerDisplay');

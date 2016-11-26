@@ -19,17 +19,21 @@ div {
 }
 
 #playerDisplay {
-  height: 70px;
-  width: 200px;
-  border: 1px solid black;
-  background: white;
-  display: inline-block;
-  margin-top: 1px;
-  margin-bottom: -30px;
-  border-radius: 5px;
+
 }
 
 #dealerDisplay {
+  /*height: 70px;
+  width: 200px;
+  border: 1px solid black;
+  background: white;
+  display: inline-block;
+  margin-top: 1px;
+  margin-bottom: -30px;
+  border-radius: 5px;*/
+}
+
+/*.ptags {
   height: 70px;
   width: 200px;
   border: 1px solid black;
@@ -38,4 +42,4 @@ div {
   margin-top: 1px;
   margin-bottom: -30px;
   border-radius: 5px;
-}
+}*/
