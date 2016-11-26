@@ -1,24 +1,9 @@
-// WORK IN COSOLE TO START
-//
-// var $gameBoard = $('#gameboard');
-// var $bankRoll = $('#bankroll');
-// var $dealerCard = $('#dealercard');
-// var $playerCard = $('#playercard');
-// var $dealerTotal = $('#dealertotal');
-// var $playerTotal = $('#playertotal');
-// var $bust = $('#bust_id');
-// var $win = $('#win_id');
-// var $lose = $('#lose_id');
-// var $tie = $('#tie_id');
-// var $suits = $('#suits');
-
 //------Below is the making of shuffled deck---------------------
 
 // making constructor function for each card that will be used to assign suit and rank later
 var Card = function (rank, suit) {
     this.rank = rank;
     this.suit = suit;
-    // this.value = value;
 };
    // making a constructor function for the deck of cards which will include methods to make the deck and shuffle it
 var Deck = function () {
@@ -29,7 +14,7 @@ var Deck = function () {
   var suits = ['hearts', 'spades', 'diamonds', 'clubs'];
   var ranks = [11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10];
 
-// for loop applying suits and ranks to each card four times, then pushing it the deck array via our card constructor object
+// for loop applying suits and ranks to each card using the card constructor object, then pushing it to the deck array
   for (var i = 0; i < suits.length; i++) {
     // console.log(suits[i]);
     for (var r = 0; r < ranks.length; r++) {
@@ -62,14 +47,7 @@ console.log(deck1.deck);
 // creating a player object
 var player = {
   hand: [],
-// method for getting sum of player hand
-  playerDealStart: function () {
-      var playerDealPop = deck1.deck.pop();
-      // console.log(playerDealPop);
-      this.hand.push(playerDealPop);
-      console.log(this.hand);
 
-  },
 //creating method to return value of players hand
   playerHandSum: function () {
       var sum = 0;
@@ -86,12 +64,10 @@ var player = {
     //popping off the last card from the deck and pushing it into array hand
       var hitCard = deck1.deck.pop();
       this.hand.push(hitCard);
-      //add event listener ("click", ...)
+      console.log(this.hand);
+
   },
-// method for player to stay
-  playerStay: function () {
-      // add event listener("click", player stays... switch to dealer)
-  },
+
 // method for player bust
   checkBust:function () {
     //if the players hand's value is greater than 21 player bust
@@ -99,71 +75,36 @@ var player = {
         return alert("Bust");
       }
   },
-// method for player blackjack
-  player21: function () {
-    // if players hand is 21 then player recieves message "Blackjack, You Win"
-      if (this.playerHandSum() === 21) {
-        return alert("Blackjack, You Win");
-      }
-  },
+
 
 
 
 };
-// calling dealer function only when appropiate
-// console.log(player);
-// console.log(player.playerHandSum(player.hand));
 
-// player.playerHit();
-// player.playerHit();
-// player.playerDealStart();
-// console.log(player.hand);
-// console.log(player.playerBust());
-// console.log(player.player21());
-// console.log(player.playerHandSum());
 
 //----------------------dealer object---------------------------
-// similar as player object only geared toward dealer
+// similar to player object only geared toward dealer, with conditions for dealer to auto hit/stay
 var dealer = {
-  handD: [],
+  hand: [],
 
-  dealerDealStart: function () {
-      var dealerDealPop = deck1.deck.pop();
-      // console.log(dealerDealPop);
-      var addPopD = this.handD.push(dealerDealPop);
-      // console.log(addPopD);
-      var dealerDealPopD1 = deck1.deck.pop();
-      // console.log(dealerDealPopD1);
-      var addPopD1 = this.handD.push(dealerDealPopD1);
-      // console.log(addPopD1);
-
-  },
 
   dealerHandSum: function () {
-    var sum = 0;
+    var sum1 = 0;
     for (var i = 0; i < this.handD.length; i++){
     sum += this.handD[i].rank;
     }
-  return sum;
+  return sum1;
 
   },
 
 // dealer must hit until hands value reaches 17 or above
   dealerHit:  function () {
-    while (this.dealerHandSum() < 18) {
+    while (this.dealerHandSum() < 17) {
       var hitCard1 = deck1.deck.pop();
       this.handD.push(hitCard1);
       console.log(this.handD);
     }
   },
-
-
-  // dealerStay: function () {
-  //     if (dealerHandSum() > 16) {
-  //
-  //     }
-  //     // add event listener("click", dealer stays... switch to dealer)
-  // },
 
   checkBustD: function () {
       //if the dealers hand's value is greater than 21 dealer bust
@@ -172,15 +113,11 @@ var dealer = {
         }
     },
 
-  dealer21: function (){
-    if (dealerHandSum() = 21) {
-      return alert("Dealer Blackjack, You Lose");
-    }
-  },
+
 
 }
 
-// object bank
+// object bank - fix so 10 is not taken from 200 but from updated bank value
 var bank = {
 // bank starts at 200, bets are incrimented by 10 per click
   bankStart: 200,
@@ -202,50 +139,40 @@ var bank = {
     console.log(newBank);
 
   }
-// unfinished reset method
-  // reset: function () {
-  //   var rsDlrHnd = dealer.dealerDealStart();
-  //   console.log(rsDlrHnd);
-  //   var rsPlyrHnd = player.playerDealStart();
-  //   console.log(rsPlyrHnd);
-  //
-  // }
+
 
 
 }
-//returning undefined
-// console.log(bank.makeBet());
 
 
 //------------ gameplay-------------------
 
-// var reset1 = function () {
-//   console.log(bank.reset());
-// }
-// console.log(reset1());
-//rename to hit
-// player.playerDealStart();
-// player.playerDealStart();
 
-// console.log(dealer.dealerDealStart());
-// console.log(player.hand);
-// console.log(dealer.handD);
-// console.log(player.playerHandSum());
+
+
+player.playerHit();
+player.playerHit();
+
+
 
 
 //-----------DOM manipulation--------------
-player.playerDealStart();
-player.playerDealStart();
+
 
 $(function() {
   $('#hit').on('click', function() {
-    player.playerDealStart();
+    player.playerHit();
     player.checkBust();
+    player.player21();
   })
   $('#stay').on('click', function() {
     dealer.dealerHit();
     dealer.checkBustD();
+    dealer.dealer21();
   })
+//if dealer bust player wins and bank increases by bet amount
+//if dealer stayes then compare hands to determine the winner, if player wins then increase bank by bet amount
+//
 
   // $('#bet').on('click', function(){
   //   bank.bet();
@@ -255,6 +182,20 @@ $(function() {
 
 })//end window.onload
 
+// bank must change in accordance with bets
+// input boxes are needed for bank, player hand, and dealer hand. bank input box should change according to bets and winning/losing bets. player and dealer hand should reset each time someone wins a hand aka always dislay the sum of each hand respectively
+
+// var $gameBoard = $('#gameboard');
+// var $bankRoll = $('#bankroll');
+// var $dealerCard = $('#dealercard');
+// var $playerCard = $('#playercard');
+// var $dealerTotal = $('#dealertotal');
+// var $playerTotal = $('#playertotal');
+// var $bust = $('#bust_id');
+// var $win = $('#win_id');
+// var $lose = $('#lose_id');
+// var $tie = $('#tie_id');
+// var $suits = $('#suits');
 
 // var blackjack = function () {
 //   var deck
@@ -293,8 +234,6 @@ $(function() {
 // next round
 // reset:player and dealer hands
 // repeat process
-//
-// bank must change in accordance with bets
 
 
 
@@ -318,94 +257,71 @@ $(function() {
 
 
 
-// psuedo code below
-//
-// set varibles for
-// gameboard
-// deck
-// bankroll
-// dealerCard
-// playerCard
-// dealerTotal
-// playerTotal
-// reloadGame
-// bust
-// win
-// lose
-// tie
-// messages you win and you lose
-//
-//edited for ln 276-279:
-// set functions(maybe constructor objects) for
-// deal
-// bet
-// score
-//
 
-// use if else statements for
-// player to dealer totals including: bust, tie, win, lose
+
+
+
+
+
+
+
+
+
+
+//--------------graveyard----------------
+// dealer21: function (){
+//   if (this.dealerHandSum() === 21) {
+//     return alert("Dealer Wins");
+//   }
+// },
+// // method for player blackjack
+//   player21: function () {
+//     // if players hand is 21 then player recieves message "Blackjack, You Win"
+//       if (this.playerHandSum() === 21) {
+//         return alert("You Win");
+//       }
+//   },
+// set interval - where will this come in to play ? not needed yet
+
+// dealerDealStart: function () {
+//     var dealerDealPop = deck1.deck.pop();
+//     // console.log(dealerDealPop);
+//     var addPopD = this.hand.push(dealerDealPop);
+//     // console.log(addPopD);
+//     var dealerDealPopD1 = deck1.deck.pop();
+//     // console.log(dealerDealPopD1);
+//     var addPopD1 = this.hand.push(dealerDealPopD1);
+//     // console.log(addPopD1);
 //
+// },
+
+// dealerStay: function () {
+//     if (dealerHandSum() > 16) {
 //
-// jquery methods/java functions
-// Math.random - to generate random cards when drawn
-// Math.floor - get rid of any decimals
-// event listeners for buttons like hit, stand, deal, bet
-// set interval - dealer: stand or bust
+//     }
+//     // add event listener("click", dealer stays... switch to dealer)
+// },
+
+// method for player to stay
+  // playerStay: function () {
+  //      add event listener("click", player stays... switch to dealer)
+  // },
 //
+// playerDealStart: function () {
+//     var playerDealPop = deck1.deck.pop();
+//     // console.log(playerDealPop);
+//     this.hand.push(playerDealPop);
+//     console.log(this.hand);
 //
-// notes
-// heavy usage of object oriented programming and jquery
-//
-// psedo code
-// 1)function reset
-// 2)function deal
-// 3)clear totals
-// 4)bet
-// 5)player hits or
-// 6)player stands
-// 7)instructions for dealer: stand or bust
-// 8)player win or lose
-// 9)reloadGame
-// 10)deal and repeat
-//
-// window.onload
-// $(function() {
-//    // code inside jQuery window onload
-// }
-// this: $(this)
-//
-//
-//
-// append elements: jQueryElement.append( jQueryElement )
-//
-// get the parent of an element: jQueryElement.parent()
-//
-// get child elements: jQueryElement.children()
-//
-// set an event listener: jQueryElement.on('click', function() {} )
-//
-// click listener: jQueryElement.click( function() {} )
-//
-// get value from input box after click: $('#idName').val()
-//
-// prepend elements: jQueryElement.prepend( jQueryElement )
-//
-// remove elements: jQueryElement.remove()
-//
-// set text inside element: jQueryElement.text("some text")
-//
-// set html inside element: jQueryElement.html("<some html>")
-//
-// check if element has a class: jQueryElement.hasClass('someClass')
-//
-// remove a class from an element: jQueryElement.removeClass('someClass');
-//
-// empty an element of content: jQueryElement.empty()
-//
-// set a css property on an element: jQueryElement.css('property', 'value')
-//
-// clone an element: jQueryElement.clone()
-//
-// append an element with the order reversed: jQueryElement.appendTo(jQueryElement )
-//
-// get a specific jQuery element from a list: jQueryCollection.eq(indexNum )
+// },
+// var $gameBoard = $('#gameboard');
+// var $bankRoll = $('#bankroll');
+// var $dealerCard = $('#dealercard');
+// var $playerCard = $('#playercard');
+// var $dealerTotal = $('#dealertotal');
+// var $playerTotal = $('#playertotal');
+// var $bust = $('#bust_id');
+// var $win = $('#win_id');
+// var $lose = $('#lose_id');
+// var $tie = $('#tie_id');
+// var $suits = $('#suits');
