@@ -39,25 +39,3 @@ div {
   margin-bottom: -30px;
   border-radius: 5px;
 }
-
-#playerCount {
-  height: 70px;
-  width: 200px;
-  border: 1px solid black;
-  background: white;
-  display: inline-block;
-  margin-top: 1px;
-  margin-bottom: -30px;
-  border-radius: 5px;
-}
-
-#dealerCount {
-  height: 70px;
-  width: 200px;
-  border: 1px solid black;
-  background: white;
-  display: inline-block;
-  margin-top: 1px;
-  margin-bottom: -30px;
-  border-radius: 5px;
-}

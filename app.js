@@ -85,18 +85,17 @@ var player = {
 //----------------------dealer object---------------------------
 // similar to player object only geared toward dealer, with conditions for dealer to auto hit/stay
 var dealer = {
-  hand: [],
+  handD: [],
 
 
   dealerHandSum: function () {
     var sum1 = 0;
     for (var i = 0; i < this.handD.length; i++){
-    sum += this.handD[i].rank;
+    sum1 += this.handD[i].rank;
     }
   return sum1;
 
   },
-
 // dealer must hit until hands value reaches 17 or above
   dealerHit:  function () {
     while (this.dealerHandSum() < 17) {
@@ -128,7 +127,6 @@ var bank = {
   bet: function () {
     // current bet is equal to 10 * the number of times bet button is clicked
     var currentBet = 0;
-    //event listener later in code
     var newBet = currentBet + this.playerBet;
     console.log(newBet);
     // bet is pushed into bet display array
@@ -141,8 +139,7 @@ var bank = {
   }
 
 
-
-}
+} // end bank object
 
 
 //------------ gameplay-------------------
@@ -153,7 +150,7 @@ var bank = {
 player.playerHit();
 player.playerHit();
 
-
+// if
 
 
 //-----------DOM manipulation--------------
@@ -163,20 +160,43 @@ $(function() {
   $('#hit').on('click', function() {
     player.playerHit();
     player.checkBust();
-    player.player21();
+    $('#playerDisplay').text(player.playerHandSum());
+
   })
+  $('#playerDisplay').text(player.playerHandSum());
+
   $('#stay').on('click', function() {
     dealer.dealerHit();
     dealer.checkBustD();
-    dealer.dealer21();
+    $('#dealerDisplay').text(dealer.dealerHandSum());
+
   })
-//if dealer bust player wins and bank increases by bet amount
-//if dealer stayes then compare hands to determine the winner, if player wins then increase bank by bet amount
-//
+  $('#bet').on('click', function() {
+    var bet = 10;
+    var currentBet = $("#bet").html();
+    var bankDisplay = $("#bankDisplay").html();
+    if(currentBet) {
+      $("#bet").html(bet);
+      }
+    $("#bankDisplay").html(bankDisplay - bet)
+  })
+
+  // $('#bankDisplay').text(currentBet)
 
   // $('#bet').on('click', function(){
   //   bank.bet();
   // })
+// jQueryElement.text("some text")
+// document.elementID.innerText = value
+// get value from input box after click: $('#idName').val()
+
+// $('#playerDisplay').val()
+
+//if dealer bust player wins and bank increases by bet amount
+//if dealer stayes then compare hands to determine the winner, if player wins then increase bank by bet amount
+//
+
+
 
 
 
@@ -186,10 +206,11 @@ $(function() {
 // input boxes are needed for bank, player hand, and dealer hand. bank input box should change according to bets and winning/losing bets. player and dealer hand should reset each time someone wins a hand aka always dislay the sum of each hand respectively
 
 // var $gameBoard = $('#gameboard');
-// var $bankRoll = $('#bankroll');
-// var $dealerCard = $('#dealercard');
-// var $playerCard = $('#playercard');
-// var $dealerTotal = $('#dealertotal');
+var $bank1 = $('#bank');
+// var $bankRoll = $('#bankRoll');
+var $bet1 = $('#bet');
+var $playerDisplay1 = $('#playerDisplay');
+var $dealerDisplay1 = $('#dealerDisplay');
 // var $playerTotal = $('#playertotal');
 // var $bust = $('#bust_id');
 // var $win = $('#win_id');
