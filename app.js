@@ -51,7 +51,7 @@ console.log(deck1.deck);
 var player = {
   hand: [],
 
-// method to return value of players hand
+// method to return value of hand
   handValue: function() {
       var sum = 0;
       // using for loop to iterate through array hand's length, sum is equilivent to sum of hand's value
@@ -62,7 +62,7 @@ var player = {
   return sum;
 
   },
-  // method for player to hit
+  // method to hit
   hit: function() {
       // .pop takes last card object from deck
       var hitCard = deck1.deck.pop();
@@ -72,18 +72,21 @@ var player = {
       console.log(this.hand);
 
   },
-  // method for player bust
+  // method to check for bust
   checkBust: function() {
-    //if the players hand's value is greater than 21 player bust
+    //if the players hand's value is greater than 21...
     if (this.handValue() > 21) {
+        // return true, hand busted
         return true;
     };
+    // if hand value is under 21 return false
     return false;
 
 
   },
-
+  // method to reset hand
   reset: function() {
+    // makes players hand array length 0
     this.hand.length = 0;
 
   },
@@ -94,11 +97,11 @@ var player = {
 
 //----------------------dealer object---------------------------
 
-// similar to player object
+// creating a dealer object
 var dealer = {
   hand: [],
 
-// method to return value of dealers hand
+  // method to return value of hand
   handValue: function() {
     var sum = 0;
     // using for loop to iterate through array hand's length, sum is equilivent to sum of hand's value
@@ -108,7 +111,7 @@ var dealer = {
   return sum;
 
   },
-// dealer must hit until hands value reaches 17 or above
+  // method to hit until hands value reaches 17 or above
   hit:  function() {
     // while loop specifies that while dealers hand is values at under 17, the dealer must hit
     while (this.handValue() < 17) {
@@ -121,20 +124,38 @@ var dealer = {
     }
 
   },
-
+  // method to check for bust
   checkBust: function() {
-      //if the dealers hand's value is greater than 21 dealer bust
+      //if the dealers hand's value is greater than 21...
     if (this.handValue() > 21) {
+        // return true, hand is a bust
         return true;
     };
+    // if hand value is under 21 return false
     return false;
 
   },
-
+  // method to reset hand
   reset: function() {
+    // makes dealers hand array length 0
     this.hand.length = 0;
 
   },
+
+
+}
+// creating a bank object
+var bank = {
+  // method to bet
+  bet: function(){
+    // declaring variable thats grabs input box's value
+    var betAmt = document.getElementById('betAmt').value;
+    // declaring variable thats grabs bank's inner text
+    var newBank = document.getElementById('bankDisplay').innerText;
+      //and changes inner text to reflect updated bank amount
+      document.getElementById('bankDisplay').innerText = newBank - betAmt
+  }
+
 
 
 }
@@ -200,42 +221,29 @@ player.hit();
 
 // -----------DOM manipulation--------------
 
-var playerDisplay = $('#playerDisplay');
 
 // window onload
 $(function() {
 
   // grab bet button elemenet by id. add event listener
   $('#bet').on('click', function() {
-    // set bet amount to 10
-    var bet = 10;
-    // .html() is used to empty content in element and replace with new content
-    // declaring altered bet button to variable currentBet
-    var currentBet = $("#bet").html();
-    // declaring altered bankDisplay to variable
-    var bankDisplay = $("#bankDisplay").html();
-    // using a conditional statement. if currentBet, execute altered bet button
-    if (currentBet) {
-      $("#bet").html('bet: + ' + bet);
-      }
-    // altered bankDisplay reflects bank amount minus bet
-    $("#bankDisplay").html(bankDisplay - bet);
+    bank.bet();
 
-  })
+  })//end of bet on click function
 
   // grab hit button elemenet by id. add event listener
   $('#hit').on('click', function() {
     // event handler: player hits
     player.hit();
+    // the players card total is displayed on screen after hit value is added
+    $('#playerDisplay').text(player.handValue());
     // check to see if busted
-    // player.checkBust();
     if (player.checkBust()) {
       return alert("You Lose! You Busted");
     }
 
-    $('#playerDisplay').text(player.handValue());
+  })// end of hit on click function
 
-  })
   // the players card total is displayed on screen
   $('#playerDisplay').text(player.handValue());
 
@@ -244,11 +252,13 @@ $(function() {
     // event handler: dealer hits until reaches 17
     dealer.hit();
     // check to see if busted
-    dealer.checkBust();
+    if (dealer.checkBust()) {
+      return alert("You Win! Dealer Busted");
+    }
     // the dealers card total is displayed on screen/updated as needed
     $('#dealerDisplay').text(dealer.handValue());
 
-  })
+  })// end of stay on click function
 
 
 
@@ -262,16 +272,14 @@ $(function() {
 
 // Your game of Blackjack must have at minimum:
 //
-// [ ] A way to keep track of the current player bankroll (a player should be able to play consecutive hands and the bankroll should reflect wins and losses)
+// [x] A way to keep track of the current player bankroll (a player should be able to play consecutive hands and the bankroll should reflect wins and losses)
 // [x] A way for the player to make a bet
 // [x] A way for the player to get more cards, or declare themselves happy with their current hand
 // [x] A way for the player to bust
 // [ ] A way for the player to win
 // [x] Game logic for the dealer to hit until a certain point
 
-// needs display for amount player bets per round(current bet)
 
-// bets need to be appropiately added/subtracted to bank at end of round (broken)
 
 // way to determine winner at end of each round (broken, need to correct form, placement)
 
@@ -314,6 +322,21 @@ $(function() {
 
 
 //--------------graveyard----------------
+// // set bet amount to 10
+// var bet = 10;
+// // .html() is used to empty content in element and replace with new content
+// // declaring altered bet button to variable currentBet
+// var currentBet = $("#bet").html();
+// // declaring altered bankDisplay to variable
+// var bankDisplay = $("#bankDisplay").html();
+//
+// // using a conditional statement. if currentBet, execute altered bet button
+// if (currentBet) {
+//   $("#bet").html(currentBet + bet);
+//   }
+// // altered bankDisplay reflects bank amount minus bet
+// $("#bankDisplay").html(bankDisplay - bet);
+
 // if (player.checkBust()) {
 //     // bank is updated to reflect loss of bet------BROKEN---------------
 //   $("#bankDisplay").html(bankDisplay - bet);
