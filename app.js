@@ -1,11 +1,13 @@
 //------making a shuffled deck of cards---------------------
 
-// constructor function for each card that will be used to assign a suit and a rank(rank doubles as value for now)
+// card constructor function
+// assigns a suit and a rank(rank doubles as value for now)
 var Card = function (rank, suit) {
  this.rank = rank;
  this.suit = suit;
 };
-// constructor function for the deck of cards which will include methods to make the deck and shuffle it
+// deck constructor function
+// include methods to make the deck and shuffle it
 var Deck = function () {
  this.deck = [];
 // method to make the deck
@@ -78,10 +80,6 @@ var player = {
       }
 
   },
-  // //method to reset hand
-  // reset: function () {
-  //
-  // },
 
 
 };
