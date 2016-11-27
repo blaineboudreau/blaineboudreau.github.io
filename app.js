@@ -76,7 +76,6 @@ var player = {
   checkBust: function() {
     //if the players hand's value is greater than 21 player bust
     if (this.handValue() > 21) {
-        this.trueBust = true;
         return true;
     };
     return false;
@@ -126,7 +125,6 @@ var dealer = {
   checkBust: function() {
       //if the dealers hand's value is greater than 21 dealer bust
     if (this.handValue() > 21) {
-        this.trueBust = true;
         return true;
     };
     return false;
@@ -202,6 +200,8 @@ player.hit();
 
 // -----------DOM manipulation--------------
 
+var playerDisplay = $('#playerDisplay');
+
 // window onload
 $(function() {
 
@@ -230,23 +230,10 @@ $(function() {
     // check to see if busted
     // player.checkBust();
     if (player.checkBust()) {
-      $("#bankDisplay").html(bankDisplay - bet);
-      return alert("You Lose! You Busted"),
-      player.reset();
-      dealer.reset();
-      // $('#playerDisplay').html();
-      }
-    // if (player.checkBust() = true) {
-    //   // bank reflects losing
-    //   $("#bankDisplay").html(bankDisplay - bet);
-    //   // alert "You Lose"
-    //   return alert("You Lose! You Busted");
-    //   // clear player and dealer hand
-    //   player.reset();
-    //   dealer.reset();
-    // }
-    // the players card total is displayed on screen/updated as needed
-    // $('#playerDisplay').text(player.handValue());
+      return alert("You Lose! You Busted");
+    }
+
+    $('#playerDisplay').text(player.handValue());
 
   })
   // the players card total is displayed on screen
@@ -282,11 +269,11 @@ $(function() {
 // [ ] A way for the player to win
 // [x] Game logic for the dealer to hit until a certain point
 
-// needs display for amount player bets per round
+// needs display for amount player bets per round(current bet)
 
-// bets need to be appropiately added/subtracted to bank at end of round
+// bets need to be appropiately added/subtracted to bank at end of round (broken)
 
-// way to determine winner at end of each round
+// way to determine winner at end of each round (broken, need to correct form, placement)
 
 // card images (not necessary to play though)
 
@@ -327,11 +314,31 @@ $(function() {
 
 
 //--------------graveyard----------------
+// if (player.checkBust()) {
+//     // bank is updated to reflect loss of bet------BROKEN---------------
+//   $("#bankDisplay").html(bankDisplay - bet);
+//   return alert("You Lose! You Busted");
+// //       player.reset();
+// //       dealer.reset();
+// // // the players card total is displayed on screen/updated as needed --------BROKEN-----------
+// //       $('#playerDisplay').text(player.handValue());
+// }
+
+
 // winning/losing conditions including
 // if player or dealer bust or
 // if the player or the dealer has handValue of 21 and the other does not.
 // if player or dealer hand is closer to 21 then others whitout going over at end of round
 // tie is referred to as a push, no gain or loss of money
+//     // if (player.checkBust() = true) {
+    //   // bank reflects losing
+    //   $("#bankDisplay").html(bankDisplay - bet);
+    //   // alert "You Lose"
+    //   return alert("You Lose! You Busted");
+    //   // clear player and dealer hand
+    //   player.reset();
+    //   dealer.reset();
+    // }
 // checkBust: function() {
 //   if (this.handValue() > 21) {
 //     return alert("Player Bust, You Lose!");
