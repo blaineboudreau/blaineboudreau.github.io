@@ -2,7 +2,7 @@
 
 // card constructor function
 // assigns a suit and a rank(rank doubles as value for now)
-var Card = function (rank, suit) {
+var Card = function(rank, suit) {
  this.rank = rank;
  this.suit = suit;
 };
@@ -11,7 +11,7 @@ var Card = function (rank, suit) {
 var Deck = function () {
  this.deck = [];
 // method to make the deck
- this.makeDeck = function () {
+ this.makeDeck = function() {
 // declaring suits and ranks to each respective array
   var suits = ['hearts', 'spades', 'diamonds', 'clubs'];
   var ranks = [11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10];
@@ -52,7 +52,7 @@ var player = {
   hand: [],
 
 // method to return value of players hand
-  handValue: function () {
+  handValue: function() {
       var sum = 0;
       // using for loop to iterate through array hand's length, sum is equilivent to sum of hand's value
         for (var i = 0; i < this.hand.length; i++) {
@@ -63,7 +63,7 @@ var player = {
 
   },
   // method for player to hit
-  hit: function () {
+  hit: function() {
       // .pop takes last card object from deck
       var hitCard = deck1.deck.pop();
       // .push takes said card object and places it into array hand
@@ -73,11 +73,19 @@ var player = {
 
   },
   // method for player bust
-  checkBust: function () {
+  checkBust: function() {
     //if the players hand's value is greater than 21 player bust
-      if (this.handValue() > 21) {
-        return alert("Player Bust, You Lose!");
-      }
+    if (this.handValue() > 21) {
+        this.trueBust = true;
+        return true;
+    };
+    return false;
+
+
+  },
+
+  reset: function() {
+    this.hand.length = 0;
 
   },
 
@@ -92,7 +100,7 @@ var dealer = {
   hand: [],
 
 // method to return value of dealers hand
-  handValue: function () {
+  handValue: function() {
     var sum = 0;
     // using for loop to iterate through array hand's length, sum is equilivent to sum of hand's value
     for (var i = 0; i < this.hand.length; i++) {
@@ -102,7 +110,7 @@ var dealer = {
 
   },
 // dealer must hit until hands value reaches 17 or above
-  hit:  function () {
+  hit:  function() {
     // while loop specifies that while dealers hand is values at under 17, the dealer must hit
     while (this.handValue() < 17) {
       // .pop takes last card object from deck
@@ -115,11 +123,18 @@ var dealer = {
 
   },
 
-  checkBust: function () {
+  checkBust: function() {
       //if the dealers hand's value is greater than 21 dealer bust
     if (this.handValue() > 21) {
-       return alert("Dealer Bust, You Win!");
-    }
+        this.trueBust = true;
+        return true;
+    };
+    return false;
+
+  },
+
+  reset: function() {
+    this.hand.length = 0;
 
   },
 
@@ -133,34 +148,63 @@ var dealer = {
 player.hit();
 player.hit();
 
+// // if player bust
+// if (player.checkBust() = true) {
+//   // bank reflects losing
+//   $("#bankDisplay").html(bankDisplay - bet);
+//   // alert "You Lose"
+//   return alert("You Lose! You Busted");
+//   // clear player and dealer hand
+//   player.reset();
+//   dealer.reset();
+//
+//   // if dealer bust
+// } else if (dealer.checkBust() = true) {
+//   // bank displays bank amount + (amount bet that round * 2)
+//   $("#bankDisplay").html(bankDisplay + bet * 2);
+//   // alert "You Win!"
+//   return alert("You Win! Dealer Busted");
+//   // clear player and dealer hand
+//   player.reset();
+//   dealer.reset();
+//
+//   // if push
+// } else if (player.handValue() = dealer.handValue()) {
+//   // bank displays bank amount + (amount bet that round)
+//   $("#bankDisplay").html(bankDisplay + bet);
+//   // alert "push"
+//   return alert("It's a Push");
+//   // clear player and dealer hand
+//   player.reset();
+//   dealer.reset();
+//
+//   // if player hand beats dealer
+// } else if (player.handValue() > dealer.handValue()) {
+//   // bank reflects player winning
+//   $("#bankDisplay").html(bankDisplay + bet * 2);
+//   // alert "You Win"
+//   return alert("You Win!");
+//   // clear player and dealer handValue
+//   player.reset();
+//   dealer.reset();
+//
+//   // if player hand losses to dealer
+// } else if (player.handValue() < dealer.handValue()) {
+//   // bank reflects losing
+//   $("#bankDisplay").html(bankDisplay - bet);
+//   // alert "You Lose"
+//   return alert("You Lose!");
+//   // clear player and dealer hand
+//   player.reset();
+//   dealer.reset();
+// }
 
 
-//-----------DOM manipulation--------------
+// -----------DOM manipulation--------------
 
-//window onload
+// window onload
 $(function() {
-  // grab hit button elemenet by id. add event listener
-  $('#hit').on('click', function() {
-    // event handler: player hits
-    player.hit();
-    // check to see if busted
-    player.checkBust();
-    // the players card total is displayed on screen/updated as needed
-    $('#playerDisplay').text(player.handValue());
 
-  })
-  // the players card total is displayed on screen
-  $('#playerDisplay').text(player.handValue());
-  // grab stay button elemenet by id. add event listener
-  $('#stay').on('click', function() {
-    // event handler: dealer hits until reaches 17
-    dealer.hit();
-    // check to see if busted
-    dealer.checkBust();
-    // the dealers card total is displayed on screen/updated as needed
-    $('#dealerDisplay').text(dealer.handValue());
-
-  })
   // grab bet button elemenet by id. add event listener
   $('#bet').on('click', function() {
     // set bet amount to 10
@@ -175,44 +219,51 @@ $(function() {
       $("#bet").html('bet: + ' + bet);
       }
     // altered bankDisplay reflects bank amount minus bet
-    $("#bankDisplay").html(bankDisplay - bet)
+    $("#bankDisplay").html(bankDisplay - bet);
 
   })
 
-    if (player.checkBust = true) {
-      // alert "You Lose"
-      // bank reflects losing
-      // clear player and dealer hand
+  // grab hit button elemenet by id. add event listener
+  $('#hit').on('click', function() {
+    // event handler: player hits
+    player.hit();
+    // check to see if busted
+    // player.checkBust();
+    if (player.checkBust()) {
+      $("#bankDisplay").html(bankDisplay - bet);
+      return alert("You Lose! You Busted"),
+      player.reset();
+      dealer.reset();
+      // $('#playerDisplay').html();
+      }
+    // if (player.checkBust() = true) {
+    //   // bank reflects losing
+    //   $("#bankDisplay").html(bankDisplay - bet);
+    //   // alert "You Lose"
+    //   return alert("You Lose! You Busted");
+    //   // clear player and dealer hand
+    //   player.reset();
+    //   dealer.reset();
+    // }
+    // the players card total is displayed on screen/updated as needed
+    // $('#playerDisplay').text(player.handValue());
 
-    } else if (dealer.checkBust = true) {
-      // alert "You Win"
-      // bank displays bank amount + (amount bet that round * 2)
-      // clear player and dealer hand
+  })
+  // the players card total is displayed on screen
+  $('#playerDisplay').text(player.handValue());
 
-    } else if (player.handValue() = dealer.handValue()) {
-      // alert "push"
-      // bank displays bank amount + (amount bet that round)
-      // clear player and dealer hand
+  // grab stay button elemenet by id. add event listener
+  $('#stay').on('click', function() {
+    // event handler: dealer hits until reaches 17
+    dealer.hit();
+    // check to see if busted
+    dealer.checkBust();
+    // the dealers card total is displayed on screen/updated as needed
+    $('#dealerDisplay').text(dealer.handValue());
+
+  })
 
 
-    }  else if (player.handValue() > dealer.handValue()) {
-        $("#bankDisplay").html(bankDisplay + bet * 2)
-        return alert("You Win!")
-
-      // players hand beats dealer
-      // alert "You Win"
-      // bank displays bank amount + (amount bet that round * 2)
-      // clear player and dealer handValue
-
-    }  else if (player.handValue() < dealer.handValue()) {
-            $("#bankDisplay").html(bankDisplay - bet)
-            return alert("You Lose!")
-
-      // dealers hand beats player
-      // alert "You Lose"
-      // bank reflects losing
-      // clear player and dealer hand
-    }
 
 
 
@@ -232,11 +283,10 @@ $(function() {
 // [x] Game logic for the dealer to hit until a certain point
 
 // needs display for amount player bets per round
+
 // bets need to be appropiately added/subtracted to bank at end of round
 
 // way to determine winner at end of each round
-
-// way to reset
 
 // card images (not necessary to play though)
 
@@ -282,6 +332,14 @@ $(function() {
 // if the player or the dealer has handValue of 21 and the other does not.
 // if player or dealer hand is closer to 21 then others whitout going over at end of round
 // tie is referred to as a push, no gain or loss of money
+// checkBust: function() {
+//   if (this.handValue() > 21) {
+//     return alert("Player Bust, You Lose!");
+//   }
+// },
+// var $dealer.hand = $('#dealer.hand');
+// $('#dealer.hand').empty();
+// $player.hand.empty();
 
 // dealer21: function (){
 //   if (this.dealerHandSum() === 21) {
