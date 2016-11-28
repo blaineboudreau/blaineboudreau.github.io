@@ -5,6 +5,7 @@
 var Card = function(rank, suit) {
  this.rank = rank;
  this.suit = suit;
+
 };// end of constructor card function
 
 // deck constructor function
@@ -219,6 +220,7 @@ var bank = {
      // grab input box qnd empty it
      var box = document.getElementById('betAmt');
      box.value = '';
+
    }
 
 }
@@ -357,6 +359,19 @@ $(function() {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
 // Your game of Blackjack must have at minimum:
 //
 // [x] A way to keep track of the current player bankroll (a player should be able to play consecutive hands and the bankroll should reflect wins and losses)
@@ -368,11 +383,6 @@ $(function() {
 
 // now working on card images
 // card images (not necessary to play though)
-
-
-
-
-
 
 
 
