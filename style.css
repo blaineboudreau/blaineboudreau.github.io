@@ -12,37 +12,14 @@ div {
 
 #bankDisplay {
   border: 1px solid black;
-  /*height: 40px;
-  width: 200px;
-  background: white;
-  display: inline-block;
-  margin-top: 1px;
-  margin-bottom: -30px;
-  border-radius: 5px;*/
 }
 
 #playerDisplay {
   border: 1px solid black;
-  /*height: 40px;
-  width: 200px;
-  border: 1px solid black;
-  background: white;
-  display: inline-block;
-  margin-top: 1px;
-  margin-bottom: -30px;
-  border-radius: 5px;*/
 }
 
 #dealerDisplay {
   border: 1px solid black;
-  /*height: 40px;
-  width: 200px;
-  border: 1px solid black;
-  background: white;
-  display: inline-block;
-  margin-top: 1px;
-  margin-bottom: -30px;
-  border-radius: 5px;*/
 }
 
 #bet {
