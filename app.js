@@ -227,6 +227,7 @@ $(function() {
     dealer.hit();
     // the dealers card total is displayed on screen after hit value is added
     $('#dealerDisplay').text(dealer.handValue());
+
     // if dealer bust
     if (dealer.checkBust()) {
       // bank displays bank amount + (amount bet that round * 2)
@@ -236,33 +237,35 @@ $(function() {
       // clear player and dealer hand
       player.reset();
       dealer.reset();
-      // the dealers card total is displayed on screen/updated as needed
+    // player and dealer tie
     } else if (player.handValue() === dealer.handValue()) {
       // bank displays bank amount + (amount bet that round)
       bank.pushBet();
-      // alert "push"
-      return alert("It's a Push");
       // clear player and dealer hand
       player.reset();
       dealer.reset();
+      // alert "push"
+      return alert("It's a Push");
+
     // if player hand beats dealer
     } else if (player.handValue() > dealer.handValue()) {
       // bank reflects player winning
       bank.winBet();
-      // alert "You Win"
-      return alert("You Win!");
       // clear player and dealer handValue
       player.reset();
       dealer.reset();
+      // alert "You Win"
+      return alert("You Win!");
+
     // if player hand losses to dealer
     } else if (player.handValue() < dealer.handValue()) {
       // bank reflects losing
-      bank.loseBet();
-      // alert "You Lose"
-      return alert("You Lose!");
+      // bank.loseBet();
       // clear player and dealer hand
       player.reset();
       dealer.reset();
+      // alert "You Lose"
+      return alert("You Lose!");
     }
 
     // $('#dealerDisplay').text(dealer.handValue());
@@ -290,7 +293,7 @@ $(function() {
 
 
 
-// way to determine winner at end of each round (broken bc reset code needs to be changed/altered)
+// way to determine winner at end of each round (broken bc reset code needs to be changed/altered...works in console when look at array but doesnt display)
 
 // bank only reflects input value so player can only bet once a turn to be accurate
 
