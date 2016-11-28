@@ -5,7 +5,8 @@
 var Card = function(rank, suit) {
  this.rank = rank;
  this.suit = suit;
-};
+};// end of constructor card function
+
 // deck constructor function
 // include methods to make the deck and shuffle it
 var Deck = function () {
@@ -36,9 +37,10 @@ this.shuffle = function() {
         this.deck[j] = temp;
     }
     return this.deck;
- } //end shuffle function
+  }// end shuffle function
 
-};
+};// end of constructor deck function
+
 var deck1 = new Deck();
 deck1.makeDeck();
 deck1.shuffle();
@@ -55,13 +57,14 @@ var player = {
   handValue: function() {
       var sum = 0;
       // using for loop to iterate through array hand's length, sum is equilivent to sum of hand's value
-        for (var i = 0; i < this.hand.length; i++) {
+      for (var i = 0; i < this.hand.length; i++) {
         sum += this.hand[i].rank;
-        }
+      }
 
   return sum;
 
   },
+
   // method to hit
   hit: function() {
       // .pop takes last card object from deck
@@ -72,6 +75,7 @@ var player = {
       console.log(this.hand);
 
   },
+
   // method to check for bust
   checkBust: function() {
     //if the players hand's value is greater than 21...
@@ -84,13 +88,22 @@ var player = {
 
 
   },
+
   // method to reset hand
   reset: function() {
-    // makes players hand array length 0
+    // makes players hand array length 0, emptying the array
     this.hand.length = 0;
+    // grabbing playerDisplay div by Id and setting innerHTML to empty
+    document.getElementById('playerDisplay').innerHTML = '';
 
   },
 
+  // method to display hand value in playerDisplay div
+  displayHand: function() {
+    // grabbing element by Id and setting inner html of playerDisplay to players hand value
+    document.getElementById('playerDisplay').innerHTML = this.handValue();
+
+  }
 
 };
 
@@ -108,12 +121,14 @@ var dealer = {
     for (var i = 0; i < this.hand.length; i++) {
     sum += this.hand[i].rank;
     }
+
   return sum;
 
   },
+
   // method to hit until hands value reaches 17 or above
   hit:  function() {
-    // while loop specifies that while dealers hand is values at under 17, the dealer must hit
+    // while loop specifies that while dealers hand value is under 17, the dealer must hit
     while (this.handValue() < 17) {
       // .pop takes last card object from deck
       var hitCard = deck1.deck.pop();
@@ -124,6 +139,7 @@ var dealer = {
     }
 
   },
+
   // method to check for bust
   checkBust: function() {
       //if the dealers hand's value is greater than 21...
@@ -139,14 +155,21 @@ var dealer = {
   reset: function() {
     // makes dealers hand array length 0
     this.hand.length = 0;
+    // grabbing dealerDisplay div by Id and setting innerHTML to empty
+    document.getElementById('dealerDisplay').innerHTML = '';
 
   },
 
+  displayHand: function() {
+    // grabbing element by Id and setting inner html of dealerDisplay div to dealers hand value
+    document.getElementById('dealerDisplay').innerHTML = this.handValue();
 
-}
+  }
+
+};
+
 
 // ----------------bank object-----------------
-
 
 // creating a bank object
 var bank = {
@@ -155,32 +178,37 @@ var bank = {
     // declaring variable thats grabs input box's value
     var betAmt = document.getElementById('betAmt').value;
     // declaring variable thats grabs bank's inner text
-    var newBank = document.getElementById('bankDisplay').innerText;
+    var newBank = document.getElementById('bankDisplay').innerHTML;
       //and changes inner text to reflect updated bank amount
-      document.getElementById('bankDisplay').innerText = newBank - betAmt;
+      document.getElementById('bankDisplay').innerHTML = newBank - betAmt;
   },
   // method to make bank reflect winning a hand
   winBet: function() {
     // declaring variable thats grabs input box's value
-    var betAmt = document.getElementById('betAmt').value;
-    // declaring variable thats grabs bank's inner text
-    var newBank = document.getElementById('bankDisplay').innerText;
-      // and changes inner text to reflect updated bank amount
-      // ------------BROKEN---------------------
-      document.getElementById('bankDisplay').innerText = newBank + betAmt * 2;
+    // using parseInt to convert strings back into numbers
+    var betAmt1 = parseInt(document.getElementById('betAmt').value);
+    // declaring variable thats grabs bank's innerHTML
+    var newBank1 = parseInt(document.getElementById('bankDisplay').innerHTML);
+      // and changes innerHTML to reflect updated bank amount
+      document.getElementById('bankDisplay').innerHTML = newBank1 + betAmt1 * 2;
   },
 
    // method for bank to reflect a push
    pushBet: function() {
      // declaring variable thats grabs input box's value
-     var betAmt = document.getElementById('betAmt').value;
-     // declaring variable thats grabs bank's inner text
-     var newBank = document.getElementById('bankDisplay').innerText;
-       //and changes inner text to reflect updated bank amount
-       //------------BROKEN---------------------
-       document.getElementById('bankDisplay').innerText = newBank + betAmt;
+     // using parseInt to convert strings back into numbers
+     var betAmt2 = parseInt(document.getElementById('betAmt').value);
+     // declaring variable thats grabs bank's innerHTML
+     var newBank2 = parseInt(document.getElementById('bankDisplay').innerHTML);
+       //and changes innerHTML to reflect updated bank amount
+       document.getElementById('bankDisplay').innerHTML = newBank2 + betAmt2;
 
    },
+   // method to clear InputBox
+   clearInputBox: function() {
+     var box = document.getElementById('betAmt');
+     box.value = '';
+   }
 
 }
 
@@ -193,6 +221,8 @@ $(function() {
 
   player.hit();
   player.hit();
+  player.displayHand();
+
   // grab bet button elemenet by id. add event listener
   $('#bet').on('click', function() {
     bank.bet();
@@ -204,76 +234,82 @@ $(function() {
     // event handler: player hits
     player.hit();
     // the players card total is displayed on screen after hit value is added
-    $('#playerDisplay').text(player.handValue());
+
+    player.displayHand();
     // check to see if busted
     if (player.checkBust()) {
-      // bank reflects losing
-      // bank.loseBet();
+      // bank reflects losing, no action needed for nowq
+      // alert msg. "You Lose"
+      alert("You Lose! You Busted");
       // clear player and dealer hand
       player.reset();
       dealer.reset();
-      // alert msg. "You Lose"
-      return alert("You Lose! You Busted");
+      // clearInputBox
+      bank.clearInputBox();
+
     }
 
   })// end of hit on click function
-
-  // the players card total is displayed on screen
-  $('#playerDisplay').text(player.handValue());
 
   // grab stay button elemenet by id. add event listener
   $('#stay').on('click', function() {
     // event handler: dealer hits until reaches 17
     dealer.hit();
-    // the dealers card total is displayed on screen after hit value is added
-    $('#dealerDisplay').text(dealer.handValue());
-
+    // display dealer hand
+    dealer.displayHand();
     // if dealer bust
     if (dealer.checkBust()) {
-      // bank displays bank amount + (amount bet that round * 2)
+      // bank reflects winning the bet
       bank.winBet();
       // alert "You Win!"
-      return alert("You Win! Dealer Busted");
+      alert("You Win! Dealer Busted");
       // clear player and dealer hand
       player.reset();
       dealer.reset();
+      // clear inputBox
+      bank.clearInputBox();
+
     // player and dealer tie
     } else if (player.handValue() === dealer.handValue()) {
       // bank displays bank amount + (amount bet that round)
       bank.pushBet();
+      // alert "push"
+      alert("It's a Push");
       // clear player and dealer hand
       player.reset();
       dealer.reset();
-      // alert "push"
-      return alert("It's a Push");
+      // clear InputBox
+      bank.clearInputBox();
 
     // if player hand beats dealer
     } else if (player.handValue() > dealer.handValue()) {
       // bank reflects player winning
       bank.winBet();
+      // alert "You Win"
+      alert("You Win!");
       // clear player and dealer handValue
       player.reset();
       dealer.reset();
-      // alert "You Win"
-      return alert("You Win!");
+      // clearInputBox
+      bank.clearInputBox();
 
     // if player hand losses to dealer
     } else if (player.handValue() < dealer.handValue()) {
-      // bank reflects losing
-      // bank.loseBet();
+      // bank reflects losing, no action needed for now
+      // alert "You Lose"
+      alert("You Lose!");
       // clear player and dealer hand
       player.reset();
       dealer.reset();
-      // alert "You Lose"
-      return alert("You Lose!");
-    }
+      // clearInputBox
+      bank.clearInputBox();
 
-    // $('#dealerDisplay').text(dealer.handValue());
+    }
 
   })// end of stay on click function
 
-  $('#dealerDisplay').text(dealer.handValue());
-
+  // dealer.displayHand();
+  // $('#dealerDisplay').text(dealer.handValue());
 
 
 
@@ -284,25 +320,21 @@ $(function() {
 
 // Your game of Blackjack must have at minimum:
 //
-// [] A way to keep track of the current player bankroll (a player should be able to play consecutive hands and the bankroll should reflect wins and losses)
+// [x] A way to keep track of the current player bankroll (a player should be able to play consecutive hands and the bankroll should reflect wins and losses)
 // [x] A way for the player to make a bet
 // [x] A way for the player to get more cards, or declare themselves happy with their current hand
 // [x] A way for the player to bust
-// [] A way for the player to win
+// [x] A way for the player to win
 // [x] Game logic for the dealer to hit until a certain point
 
-
-
-// way to determine winner at end of each round (broken bc reset code needs to be changed/altered...works in console when look at array but doesnt display)
-
-// bank only reflects input value so player can only bet once a turn to be accurate
-
-// bank does not display correct amount for win or push (displays old and new values instead of getting sum, can't add innerText ?), loss is correct though since bank decreases by every bet amount already
-// // fix ln 168 and ln 186
-
-
-
+// now working on card images
 // card images (not necessary to play though)
+
+
+
+
+
+
 
 
 
