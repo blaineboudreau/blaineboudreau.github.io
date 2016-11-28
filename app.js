@@ -140,6 +140,16 @@ var dealer = {
 
   },
 
+  // method for dealer to start with one card face up
+  hitStart: function() {
+      // .pop takes last card object from deck
+      var hitCard = deck1.deck.pop();
+      // .push takes said card object and places it into array hand
+      this.hand.push(hitCard);
+      // this and dot notation provides appropiate scope
+      console.log(this.hand);
+
+  },
   // method to check for bust
   checkBust: function() {
       //if the dealers hand's value is greater than 21...
@@ -159,11 +169,18 @@ var dealer = {
     document.getElementById('dealerDisplay').innerHTML = '';
 
   },
-
+  // method to display hand
   displayHand: function() {
     // grabbing element by Id and setting inner html of dealerDisplay div to dealers hand value
     document.getElementById('dealerDisplay').innerHTML = this.handValue();
 
+  },
+
+  start: function() {
+    var self = this;
+    this.displayHandTimer = setInterval(function() {
+      self.displayHand();
+    }, 5000);
   }
 
 };
@@ -218,16 +235,21 @@ var bank = {
 
 // window onload
 $(function() {
+
   // dealing player hand by calling on hit method from player object
   player.hit();
   player.hit();
+  // dealer starts with one card value showing
+  dealer.hitStart();
   // displaying hand with object method
   player.displayHand();
-
+  dealer.displayHand();
   // grabbing bet button elemenet by Id and adding event listener
   $('#bet').on('click', function() {
     // calling on bet method from bank object
     bank.bet();
+    // hide bet button
+    document.getElementById('bet').style.visibility='hidden';
 
   })//end of bet on click function
 
@@ -247,7 +269,10 @@ $(function() {
       dealer.reset();
       // clearInputBox
       bank.clearInputBox();
-
+      // show bet button
+      document.getElementById('bet').style.visibility='visible';
+      // dealer starts with one card value showing
+      dealer.hitStart();
     }
 
   })// end of hit on click function
@@ -256,8 +281,6 @@ $(function() {
   $('#stay').on('click', function() {
     // event handler: dealer hits until reaches 17
     dealer.hit();
-    // display dealer hand with object method
-    dealer.displayHand();
     // if dealer bust
     if (dealer.checkBust()) {
       // bank reflects winning the bet through object method
@@ -269,6 +292,10 @@ $(function() {
       dealer.reset();
       // clear inputBox
       bank.clearInputBox();
+      // show bet button
+      document.getElementById('bet').style.visibility='visible';
+      // dealer starts with one card value showing
+      dealer.hitStart();
 
     // player and dealer tie
     } else if (player.handValue() === dealer.handValue()) {
@@ -281,6 +308,9 @@ $(function() {
       dealer.reset();
       // clear InputBox
       bank.clearInputBox();
+      document.getElementById('bet').style.visibility='visible'
+      // dealer starts with one card value showing
+      dealer.hitStart();
 
     // if player hand beats dealer
     } else if (player.handValue() > dealer.handValue()) {
@@ -293,6 +323,9 @@ $(function() {
       dealer.reset();
       // clearInputBox
       bank.clearInputBox();
+      document.getElementById('bet').style.visibility='visible'
+      // dealer starts with one card value showing
+      dealer.hitStart();
 
     // if player hand losses to dealer
     } else if (player.handValue() < dealer.handValue()) {
@@ -304,7 +337,10 @@ $(function() {
       dealer.reset();
       // clearInputBox
       bank.clearInputBox();
-
+      // show bet button
+      document.getElementById('bet').style.visibility='visible'
+      // dealer starts with one card value showing
+      dealer.hitStart();
     }
 
   })// end of stay on click function
