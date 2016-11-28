@@ -174,13 +174,6 @@ var dealer = {
     // grabbing element by Id and setting inner html of dealerDisplay div to dealers hand value
     document.getElementById('dealerDisplay').innerHTML = this.handValue();
 
-  },
-
-  start: function() {
-    var self = this;
-    this.displayHandTimer = setInterval(function() {
-      self.displayHand();
-    }, 5000);
   }
 
 };
@@ -223,6 +216,7 @@ var bank = {
    },
    // method to clear InputBox
    clearInputBox: function() {
+     // grab input box qnd empty it
      var box = document.getElementById('betAmt');
      box.value = '';
    }
@@ -284,6 +278,7 @@ $(function() {
     dealer.hit();
     // if dealer bust
     if (dealer.checkBust()) {
+      // broken, wont show dealers hand before resetting
       dealer.displayHand();
       // bank reflects winning the bet through object method
       bank.winBet();
@@ -301,6 +296,7 @@ $(function() {
 
     // player and dealer tie
     } else if (player.handValue() === dealer.handValue()) {
+      // broken, wont show dealers hand before resetting
       dealer.displayHand();
       // bank reflects a tie
       bank.pushBet();
@@ -311,32 +307,36 @@ $(function() {
       dealer.reset();
       // clear InputBox
       bank.clearInputBox();
+      // show bet button
       document.getElementById('bet').style.visibility='visible'
       // dealer starts with one card value showing
       dealer.hitStart();
 
     // if player hand beats dealer
     } else if (player.handValue() > dealer.handValue()) {
+      // broken, wont show dealers hand before resetting
       dealer.displayHand();
       // bank reflects player winning
       bank.winBet();
       // alert "You Win"
-      alert("You Win!");
+      alert("You Won With A Better Hand!");
       // clear player and dealer handValue
       player.reset();
       dealer.reset();
       // clearInputBox
       bank.clearInputBox();
+      // show bet button
       document.getElementById('bet').style.visibility='visible'
       // dealer starts with one card value showing
       dealer.hitStart();
 
     // if player hand losses to dealer
     } else if (player.handValue() < dealer.handValue()) {
+      // broken, wont show dealers hand before resetting
       dealer.displayHand();
       // bank reflects losing, no action needed because bank already reflects this
       // alert "You Lose"
-      alert("You Lose!");
+      alert("You Loss With A Worse Hand!");
       // clear player and dealer hand
       player.reset();
       dealer.reset();
@@ -380,38 +380,16 @@ $(function() {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 //--------------graveyard----------------
+// time interval to display dealer cards for certain amount of time before the reset but did not get working
+// start: function() {
+//   var self = this;
+//   this.displayHandTimer = setInterval(function() {
+//     self.displayHand();
+//   }, 5000);
+// }
+
+
 // method to make bank reflect losing a hand
 //  loseBet: function() {
 //    // declaring variable thats grabs input box's value
