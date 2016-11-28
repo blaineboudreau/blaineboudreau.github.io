@@ -218,27 +218,28 @@ var bank = {
 
 // window onload
 $(function() {
-
+  // dealing player hand by calling on hit method from player object
   player.hit();
   player.hit();
+  // displaying hand with object method
   player.displayHand();
 
-  // grab bet button elemenet by id. add event listener
+  // grabbing bet button elemenet by Id and adding event listener
   $('#bet').on('click', function() {
+    // calling on bet method from bank object
     bank.bet();
 
   })//end of bet on click function
 
-  // grab hit button elemenet by id. add event listener
+  // grabbing hit button elemenet by Id and adding event listener
   $('#hit').on('click', function() {
     // event handler: player hits
     player.hit();
-    // the players card total is displayed on screen after hit value is added
-
+    // displaying hand with object method
     player.displayHand();
     // check to see if busted
     if (player.checkBust()) {
-      // bank reflects losing, no action needed for nowq
+      // bank reflects losing, no action needed for now because bank already reflects this
       // alert msg. "You Lose"
       alert("You Lose! You Busted");
       // clear player and dealer hand
@@ -251,15 +252,15 @@ $(function() {
 
   })// end of hit on click function
 
-  // grab stay button elemenet by id. add event listener
+  // grab stay button elemenet by Id add event listener
   $('#stay').on('click', function() {
     // event handler: dealer hits until reaches 17
     dealer.hit();
-    // display dealer hand
+    // display dealer hand with object method
     dealer.displayHand();
     // if dealer bust
     if (dealer.checkBust()) {
-      // bank reflects winning the bet
+      // bank reflects winning the bet through object method
       bank.winBet();
       // alert "You Win!"
       alert("You Win! Dealer Busted");
@@ -271,7 +272,7 @@ $(function() {
 
     // player and dealer tie
     } else if (player.handValue() === dealer.handValue()) {
-      // bank displays bank amount + (amount bet that round)
+      // bank reflects a tie
       bank.pushBet();
       // alert "push"
       alert("It's a Push");
@@ -295,7 +296,7 @@ $(function() {
 
     // if player hand losses to dealer
     } else if (player.handValue() < dealer.handValue()) {
-      // bank reflects losing, no action needed for now
+      // bank reflects losing, no action needed because bank already reflects this
       // alert "You Lose"
       alert("You Lose!");
       // clear player and dealer hand
@@ -307,10 +308,6 @@ $(function() {
     }
 
   })// end of stay on click function
-
-  // dealer.displayHand();
-  // $('#dealerDisplay').text(dealer.handValue());
-
 
 
 })//end window.onload
