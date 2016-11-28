@@ -1,7 +1,7 @@
 //------making a shuffled deck of cards---------------------
 
 // card constructor function
-// assigns a suit and a rank(rank doubles as value for now)
+// assigns a suit and a rank(rank doubles as value)
 var Card = function(rank, suit) {
  this.rank = rank;
  this.suit = suit;
@@ -197,22 +197,22 @@ var bank = {
   winBet: function() {
     // declaring variable thats grabs input box's value
     // using parseInt to convert strings back into numbers
-    var betAmt1 = parseInt(document.getElementById('betAmt').value);
+    var betAmt = parseInt(document.getElementById('betAmt').value);
     // declaring variable thats grabs bank's innerHTML
-    var newBank1 = parseInt(document.getElementById('bankDisplay').innerHTML);
+    var newBank = parseInt(document.getElementById('bankDisplay').innerHTML);
       // and changes innerHTML to reflect updated bank amount
-      document.getElementById('bankDisplay').innerHTML = newBank1 + betAmt1 * 2;
+      document.getElementById('bankDisplay').innerHTML = newBank + betAmt * 2;
   },
 
    // method for bank to reflect a push
    pushBet: function() {
      // declaring variable thats grabs input box's value
      // using parseInt to convert strings back into numbers
-     var betAmt2 = parseInt(document.getElementById('betAmt').value);
+     var betAmt = parseInt(document.getElementById('betAmt').value);
      // declaring variable thats grabs bank's innerHTML
-     var newBank2 = parseInt(document.getElementById('bankDisplay').innerHTML);
+     var newBank = parseInt(document.getElementById('bankDisplay').innerHTML);
        //and changes innerHTML to reflect updated bank amount
-       document.getElementById('bankDisplay').innerHTML = newBank2 + betAmt2;
+       document.getElementById('bankDisplay').innerHTML = newBank + betAmt;
 
    },
    // method to clear InputBox
@@ -223,7 +223,7 @@ var bank = {
 
    }
 
-}
+};
 
 
 // -----------DOM manipulation--------------
@@ -286,6 +286,8 @@ $(function() {
       bank.winBet();
       // alert "You Win!"
       alert("You Win! Dealer Busted");
+      setTimeout(function() {
+        // alert("resetting board");
       // clear player and dealer hand
       player.reset();
       dealer.reset();
@@ -295,6 +297,7 @@ $(function() {
       document.getElementById('bet').style.visibility='visible';
       // dealer starts with one card value showing
       dealer.hitStart();
+      }, 3000);
 
     // player and dealer tie
     } else if (player.handValue() === dealer.handValue()) {
@@ -304,6 +307,8 @@ $(function() {
       bank.pushBet();
       // alert "push"
       alert("It's a Push");
+      setTimeout(function() {
+        // alert("resetting board");
       // clear player and dealer hand
       player.reset();
       dealer.reset();
@@ -313,6 +318,7 @@ $(function() {
       document.getElementById('bet').style.visibility='visible'
       // dealer starts with one card value showing
       dealer.hitStart();
+      }, 3000);
 
     // if player hand beats dealer
     } else if (player.handValue() > dealer.handValue()) {
@@ -322,6 +328,8 @@ $(function() {
       bank.winBet();
       // alert "You Win"
       alert("You Won With A Better Hand!");
+      setTimeout(function() {
+        // alert("resetting board");
       // clear player and dealer handValue
       player.reset();
       dealer.reset();
@@ -331,6 +339,7 @@ $(function() {
       document.getElementById('bet').style.visibility='visible'
       // dealer starts with one card value showing
       dealer.hitStart();
+      }, 3000);
 
     // if player hand losses to dealer
     } else if (player.handValue() < dealer.handValue()) {
@@ -339,15 +348,19 @@ $(function() {
       // bank reflects losing, no action needed because bank already reflects this
       // alert "You Lose"
       alert("You Loss With A Worse Hand!");
-      // clear player and dealer hand
-      player.reset();
-      dealer.reset();
-      // clearInputBox
-      bank.clearInputBox();
-      // show bet button
-      document.getElementById('bet').style.visibility='visible'
-      // dealer starts with one card value showing
-      dealer.hitStart();
+      setTimeout(function() {
+        // alert("resetting board");
+        // clear player and dealer hand
+        player.reset();
+        dealer.reset();
+        // clearInputBox
+        bank.clearInputBox();
+        // show bet button
+        document.getElementById('bet').style.visibility='visible'
+        // dealer starts with one card value showing
+        dealer.hitStart();
+
+        }, 3000);
 
     }
 
@@ -372,17 +385,7 @@ $(function() {
 
 
 
-// Your game of Blackjack must have at minimum:
-//
-// [x] A way to keep track of the current player bankroll (a player should be able to play consecutive hands and the bankroll should reflect wins and losses)
-// [x] A way for the player to make a bet
-// [x] A way for the player to get more cards, or declare themselves happy with their current hand
-// [x] A way for the player to bust
-// [x] A way for the player to win
-// [x] Game logic for the dealer to hit until a certain point
 
-// now working on card images
-// card images (not necessary to play though)
 
 
 
@@ -560,6 +563,18 @@ $(function() {
 //     console.log(this.hand);
 //
 // },
+
+// Your game of Blackjack must have at minimum:
+//
+// [x] A way to keep track of the current player bankroll (a player should be able to play consecutive hands and the bankroll should reflect wins and losses)
+// [x] A way for the player to make a bet
+// [x] A way for the player to get more cards, or declare themselves happy with their current hand
+// [x] A way for the player to bust
+// [x] A way for the player to win
+// [x] Game logic for the dealer to hit until a certain point
+
+// now working on card images
+// card images (not necessary to play though)
 
 // var $gameBoard = $('#gameboard');
 // var $bank = $('#bank');
