@@ -144,79 +144,51 @@ var dealer = {
 
 
 }
+
+// ----------------bank object-----------------
+
+
 // creating a bank object
 var bank = {
-  // method to bet
-  bet: function(){
+  // method to make bank reflect bets
+  bet: function() {
     // declaring variable thats grabs input box's value
     var betAmt = document.getElementById('betAmt').value;
     // declaring variable thats grabs bank's inner text
     var newBank = document.getElementById('bankDisplay').innerText;
       //and changes inner text to reflect updated bank amount
-      document.getElementById('bankDisplay').innerText = newBank - betAmt
-  }
+      document.getElementById('bankDisplay').innerText = newBank - betAmt;
+  },
+  // method to make bank reflect winning a hand
+  winBet: function() {
+    // declaring variable thats grabs input box's value
+    var betAmt = document.getElementById('betAmt').value;
+    // declaring variable thats grabs bank's inner text
+    var newBank = document.getElementById('bankDisplay').innerText;
+      //and changes inner text to reflect updated bank amount
+      document.getElementById('bankDisplay').innerText = newBank + betAmt * 2;
+  },
+   // method to make bank reflect losing a hand
+  //  loseBet: function() {
+  //    // declaring variable thats grabs input box's value
+  //    var betAmt = document.getElementById('betAmt').value;
+  //    // declaring variable thats grabs bank's inner text
+  //    var newBank = document.getElementById('bankDisplay').innerText;
+  //      //and changes inner text to reflect updated bank amount
+  //      document.getElementById('bankDisplay').innerText = newBank - betAmt ;
+  //  },
+   // method for bank to reflect a push
+   pushBet: function() {
+     // declaring variable thats grabs input box's value
+     var betAmt = document.getElementById('betAmt').value;
+     // declaring variable thats grabs bank's inner text
+     var newBank = document.getElementById('bankDisplay').innerText;
+       //and changes inner text to reflect updated bank amount
+       document.getElementById('bankDisplay').innerText = newBank + betAmt;
 
-
+   },
 
 }
-
-
-//------------ gameplay-------------------
-
-// deal players hand
-player.hit();
-player.hit();
-
-// // if player bust
-// if (player.checkBust() = true) {
-//   // bank reflects losing
-//   $("#bankDisplay").html(bankDisplay - bet);
-//   // alert "You Lose"
-//   return alert("You Lose! You Busted");
-//   // clear player and dealer hand
-//   player.reset();
-//   dealer.reset();
-//
-//   // if dealer bust
-// } else if (dealer.checkBust() = true) {
-//   // bank displays bank amount + (amount bet that round * 2)
-//   $("#bankDisplay").html(bankDisplay + bet * 2);
-//   // alert "You Win!"
-//   return alert("You Win! Dealer Busted");
-//   // clear player and dealer hand
-//   player.reset();
-//   dealer.reset();
-//
-//   // if push
-// } else if (player.handValue() = dealer.handValue()) {
-//   // bank displays bank amount + (amount bet that round)
-//   $("#bankDisplay").html(bankDisplay + bet);
-//   // alert "push"
-//   return alert("It's a Push");
-//   // clear player and dealer hand
-//   player.reset();
-//   dealer.reset();
-//
-//   // if player hand beats dealer
-// } else if (player.handValue() > dealer.handValue()) {
-//   // bank reflects player winning
-//   $("#bankDisplay").html(bankDisplay + bet * 2);
-//   // alert "You Win"
-//   return alert("You Win!");
-//   // clear player and dealer handValue
-//   player.reset();
-//   dealer.reset();
-//
-//   // if player hand losses to dealer
-// } else if (player.handValue() < dealer.handValue()) {
-//   // bank reflects losing
-//   $("#bankDisplay").html(bankDisplay - bet);
-//   // alert "You Lose"
-//   return alert("You Lose!");
-//   // clear player and dealer hand
-//   player.reset();
-//   dealer.reset();
-// }
 
 
 // -----------DOM manipulation--------------
@@ -225,6 +197,8 @@ player.hit();
 // window onload
 $(function() {
 
+  player.hit();
+  player.hit();
   // grab bet button elemenet by id. add event listener
   $('#bet').on('click', function() {
     bank.bet();
@@ -239,6 +213,12 @@ $(function() {
     $('#playerDisplay').text(player.handValue());
     // check to see if busted
     if (player.checkBust()) {
+      // bank reflects losing
+      // bank.loseBet();
+      // clear player and dealer hand
+      player.reset();
+      dealer.reset();
+      // alert msg. "You Lose"
       return alert("You Lose! You Busted");
     }
 
@@ -251,11 +231,46 @@ $(function() {
   $('#stay').on('click', function() {
     // event handler: dealer hits until reaches 17
     dealer.hit();
-    // check to see if busted
+    // the dealers card total is displayed on screen after hit value is added
+    $('#dealerDisplay').text(dealer.handValue());
+    // if dealer bust
     if (dealer.checkBust()) {
+      // bank displays bank amount + (amount bet that round * 2)
+      bank.winBet();
+      // alert "You Win!"
       return alert("You Win! Dealer Busted");
+      // clear player and dealer hand
+      player.reset();
+      dealer.reset();
+      // the dealers card total is displayed on screen/updated as needed
+    } else if (player.handValue() === dealer.handValue()) {
+      // bank displays bank amount + (amount bet that round)
+      bank.pushBet();
+      // alert "push"
+      return alert("It's a Push");
+      // clear player and dealer hand
+      player.reset();
+      dealer.reset();
+    // if player hand beats dealer
+    } else if (player.handValue() > dealer.handValue()) {
+      // bank reflects player winning
+      bank.winBet();
+      // alert "You Win"
+      return alert("You Win!");
+      // clear player and dealer handValue
+      player.reset();
+      dealer.reset();
+    // if player hand losses to dealer
+    } else if (player.handValue() < dealer.handValue()) {
+      // bank reflects losing
+      bank.loseBet();
+      // alert "You Lose"
+      return alert("You Lose!");
+      // clear player and dealer hand
+      player.reset();
+      dealer.reset();
     }
-    // the dealers card total is displayed on screen/updated as needed
+
     $('#dealerDisplay').text(dealer.handValue());
 
   })// end of stay on click function
@@ -282,6 +297,7 @@ $(function() {
 
 
 // way to determine winner at end of each round (broken, need to correct form, placement)
+// fix ln 168 and ln 186
 
 // card images (not necessary to play though)
 
@@ -322,6 +338,62 @@ $(function() {
 
 
 //--------------graveyard----------------
+//------gameplay----------
+// deal players hand
+// player.hit();
+// player.hit();
+
+// // if player bust
+// if (player.checkBust() = true) {
+//   // bank reflects losing
+//   bank.loseBet();
+//   // alert "You Lose"
+//   return alert("You Lose! You Busted");
+//   // clear player and dealer hand
+//   player.reset();
+//   dealer.reset();
+//
+//   // if dealer bust
+// } else if (dealer.checkBust() = true) {
+//   // bank displays bank amount + (amount bet that round * 2)
+//   bank.winBet();
+//   // alert "You Win!"
+//   return alert("You Win! Dealer Busted");
+//   // clear player and dealer hand
+//   player.reset();
+//   dealer.reset();
+//
+//   // if push
+// } else if (player.handValue() = dealer.handValue()) {
+//   // bank displays bank amount + (amount bet that round)
+//   bank.pushBet();
+//   // alert "push"
+//   return alert("It's a Push");
+//   // clear player and dealer hand
+//   player.reset();
+//   dealer.reset();
+//
+//   // if player hand beats dealer
+// } else if (player.handValue() > dealer.handValue()) {
+//   // bank reflects player winning
+//   bank.winBet();
+//   // alert "You Win"
+//   return alert("You Win!");
+//   // clear player and dealer handValue
+//   player.reset();
+//   dealer.reset();
+//
+//   // if player hand losses to dealer
+// } else if (player.handValue() < dealer.handValue()) {
+//   // bank reflects losing
+//   bank.loseBet();
+//   // alert "You Lose"
+//   return alert("You Lose!");
+//   // clear player and dealer hand
+//   player.reset();
+//   dealer.reset();
+// }
+
 // // set bet amount to 10
 // var bet = 10;
 // // .html() is used to empty content in element and replace with new content
