@@ -290,14 +290,14 @@ $(function() {
 
 
 
-// way to determine winner at end of each round (broken, need to correct form, placement)
+// way to determine winner at end of each round (broken bc reset code needs to be changed/altered)
 
 // bank only reflects input value so player can only bet once a turn to be accurate
 
-// as for winning conditions bank does not display correct amount for win or push (displays old and new values instead of getting sum, can't add innerText ?), loss is correct though
+// bank does not display correct amount for win or push (displays old and new values instead of getting sum, can't add innerText ?), loss is correct though since bank decreases by every bet amount already
 // // fix ln 168 and ln 186
 
-//fix resets
+
 
 // card images (not necessary to play though)
 
