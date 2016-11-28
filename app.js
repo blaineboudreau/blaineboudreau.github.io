@@ -165,18 +165,11 @@ var bank = {
     var betAmt = document.getElementById('betAmt').value;
     // declaring variable thats grabs bank's inner text
     var newBank = document.getElementById('bankDisplay').innerText;
-      //and changes inner text to reflect updated bank amount
+      // and changes inner text to reflect updated bank amount
+      // ------------BROKEN---------------------
       document.getElementById('bankDisplay').innerText = newBank + betAmt * 2;
   },
-   // method to make bank reflect losing a hand
-  //  loseBet: function() {
-  //    // declaring variable thats grabs input box's value
-  //    var betAmt = document.getElementById('betAmt').value;
-  //    // declaring variable thats grabs bank's inner text
-  //    var newBank = document.getElementById('bankDisplay').innerText;
-  //      //and changes inner text to reflect updated bank amount
-  //      document.getElementById('bankDisplay').innerText = newBank - betAmt ;
-  //  },
+
    // method for bank to reflect a push
    pushBet: function() {
      // declaring variable thats grabs input box's value
@@ -184,6 +177,7 @@ var bank = {
      // declaring variable thats grabs bank's inner text
      var newBank = document.getElementById('bankDisplay').innerText;
        //and changes inner text to reflect updated bank amount
+       //------------BROKEN---------------------
        document.getElementById('bankDisplay').innerText = newBank + betAmt;
 
    },
@@ -271,11 +265,11 @@ $(function() {
       dealer.reset();
     }
 
-    $('#dealerDisplay').text(dealer.handValue());
+    // $('#dealerDisplay').text(dealer.handValue());
 
   })// end of stay on click function
 
-
+  $('#dealerDisplay').text(dealer.handValue());
 
 
 
@@ -287,17 +281,23 @@ $(function() {
 
 // Your game of Blackjack must have at minimum:
 //
-// [x] A way to keep track of the current player bankroll (a player should be able to play consecutive hands and the bankroll should reflect wins and losses)
+// [] A way to keep track of the current player bankroll (a player should be able to play consecutive hands and the bankroll should reflect wins and losses)
 // [x] A way for the player to make a bet
 // [x] A way for the player to get more cards, or declare themselves happy with their current hand
 // [x] A way for the player to bust
-// [ ] A way for the player to win
+// [] A way for the player to win
 // [x] Game logic for the dealer to hit until a certain point
 
 
 
 // way to determine winner at end of each round (broken, need to correct form, placement)
-// fix ln 168 and ln 186
+
+// bank only reflects input value so player can only bet once a turn to be accurate
+
+// as for winning conditions bank does not display correct amount for win or push (displays old and new values instead of getting sum, can't add innerText ?), loss is correct though
+// // fix ln 168 and ln 186
+
+//fix resets
 
 // card images (not necessary to play though)
 
@@ -338,6 +338,16 @@ $(function() {
 
 
 //--------------graveyard----------------
+// method to make bank reflect losing a hand
+//  loseBet: function() {
+//    // declaring variable thats grabs input box's value
+//    var betAmt = document.getElementById('betAmt').value;
+//    // declaring variable thats grabs bank's inner text
+//    var newBank = document.getElementById('bankDisplay').innerText;
+//      //and changes inner text to reflect updated bank amount
+//      document.getElementById('bankDisplay').innerText = newBank - betAmt ;
+//  },
+
 //------gameplay----------
 // deal players hand
 // player.hit();
