@@ -273,6 +273,7 @@ $(function() {
       document.getElementById('bet').style.visibility='visible';
       // dealer starts with one card value showing
       dealer.hitStart();
+
     }
 
   })// end of hit on click function
@@ -283,6 +284,7 @@ $(function() {
     dealer.hit();
     // if dealer bust
     if (dealer.checkBust()) {
+      dealer.displayHand();
       // bank reflects winning the bet through object method
       bank.winBet();
       // alert "You Win!"
@@ -299,6 +301,7 @@ $(function() {
 
     // player and dealer tie
     } else if (player.handValue() === dealer.handValue()) {
+      dealer.displayHand();
       // bank reflects a tie
       bank.pushBet();
       // alert "push"
@@ -314,6 +317,7 @@ $(function() {
 
     // if player hand beats dealer
     } else if (player.handValue() > dealer.handValue()) {
+      dealer.displayHand();
       // bank reflects player winning
       bank.winBet();
       // alert "You Win"
@@ -329,6 +333,7 @@ $(function() {
 
     // if player hand losses to dealer
     } else if (player.handValue() < dealer.handValue()) {
+      dealer.displayHand();
       // bank reflects losing, no action needed because bank already reflects this
       // alert "You Lose"
       alert("You Lose!");
@@ -341,6 +346,7 @@ $(function() {
       document.getElementById('bet').style.visibility='visible'
       // dealer starts with one card value showing
       dealer.hitStart();
+
     }
 
   })// end of stay on click function
